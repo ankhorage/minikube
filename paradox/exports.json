@@ -1,22 +1,29 @@
 [
   {
     "name": "createInfraAdapter",
-    "description": "Create the canonical Minikube runtime adapter entrypoint.\n\nThe foundation exposes the released Contracts boundary and fails lifecycle calls explicitly\nuntil the provider implementation phase supplies its external adapters.",
+    "description": "Create the canonical Minikube runtime adapter entrypoint.\n\nThe caller supplies a Minikube-specific command boundary. Standard workload projection and\nreconciliation are delegated to the published Kubernetes driver.",
     "isReadme": true,
     "examples": [],
     "kind": "function",
     "modulePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
     "sourceLocation": {
       "filePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
-      "line": 13,
+      "line": 20,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
-    "relatedSymbols": [],
+    "relatedSymbols": ["MinikubeAdapterOptions"],
     "signatures": [
       {
-        "label": "() => InfraRuntimeAdapter<\"minikube\">",
-        "parameters": [],
+        "label": "(options: MinikubeAdapterOptions) => InfraRuntimeAdapter<\"minikube\">",
+        "parameters": [
+          {
+            "name": "options",
+            "type": "MinikubeAdapterOptions",
+            "required": true,
+            "description": null
+          }
+        ],
         "returnType": "InfraRuntimeAdapter<\"minikube\">",
         "returnDescription": null
       }
@@ -35,6 +42,303 @@
       "filePath": "src/constants/infra.ts",
       "line": 5,
       "column": 14
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "MinikubeAdapterOptions",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/minikubeRuntime.ts",
+    "sourceLocation": {
+      "filePath": "src/types/minikubeRuntime.ts",
+      "line": 11,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["MinikubeControlPlane"],
+    "signatures": [],
+    "members": [
+      {
+        "name": "controlPlane",
+        "kind": "property",
+        "type": "MinikubeControlPlane",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "MinikubeClusterIdentity",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/minikubeRuntime.ts",
+    "sourceLocation": {
+      "filePath": "src/types/minikubeRuntime.ts",
+      "line": 15,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [
+      {
+        "name": "environment",
+        "kind": "property",
+        "type": "\"local\"",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "profile",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "projectId",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "MinikubeClusterObservation",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/minikubeRuntime.ts",
+    "sourceLocation": {
+      "filePath": "src/types/minikubeRuntime.ts",
+      "line": 28,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [
+      {
+        "name": "api",
+        "kind": "property",
+        "type": "KubernetesApi | undefined",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "configurationMatches",
+        "kind": "property",
+        "type": "boolean",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "detail",
+        "kind": "property",
+        "type": "string | undefined",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "state",
+        "kind": "property",
+        "type": "\"absent\" | \"pending\" | \"ready\" | \"degraded\" | \"stopped\" | \"retained\" | \"failed\" | \"unknown\"",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "MinikubeClusterSpec",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/minikubeRuntime.ts",
+    "sourceLocation": {
+      "filePath": "src/types/minikubeRuntime.ts",
+      "line": 21,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [
+      {
+        "name": "cpus",
+        "kind": "property",
+        "type": "number | undefined",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "driver",
+        "kind": "property",
+        "type": "\"docker\" | \"podman\"",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "environment",
+        "kind": "property",
+        "type": "\"local\"",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "memoryMiB",
+        "kind": "property",
+        "type": "number | undefined",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "profile",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "projectId",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "target",
+        "kind": "property",
+        "type": "{ readonly id: string; readonly os: \"linux\" | \"darwin\" | \"windows\"; readonly architecture: \"amd64\" | \"arm64\"; } & { readonly kind: \"local-host\"; }",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "MinikubeControlPlane",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/minikubeRuntime.ts",
+    "sourceLocation": {
+      "filePath": "src/types/minikubeRuntime.ts",
+      "line": 38,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [
+      "MinikubeClusterIdentity",
+      "MinikubeClusterObservation",
+      "MinikubeClusterSpec",
+      "MinikubeEndpointOutput"
+    ],
+    "signatures": [],
+    "members": [
+      {
+        "name": "destroyAsync",
+        "kind": "method",
+        "type": "(identity: MinikubeClusterIdentity, signal?: AbortSignal) => Promise<InfraResult<null>>",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "ensureAsync",
+        "kind": "method",
+        "type": "(spec: MinikubeClusterSpec, signal?: AbortSignal) => Promise<InfraResult<MinikubeClusterObservation>>",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "inspectAsync",
+        "kind": "method",
+        "type": "(identity: MinikubeClusterIdentity, signal?: AbortSignal) => Promise<InfraResult<MinikubeClusterObservation>>",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "loadImagesAsync",
+        "kind": "method",
+        "type": "(identity: MinikubeClusterIdentity, images: readonly string[], signal?: AbortSignal) => Promise<InfraResult<null>>",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "repairEndpointsAsync",
+        "kind": "method",
+        "type": "(identity: MinikubeClusterIdentity, workloads: readonly InfraWorkloadSpec[], signal?: AbortSignal) => Promise<InfraResult<readonly MinikubeEndpointOutput[]>>",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "suspendAsync",
+        "kind": "method",
+        "type": "(identity: MinikubeClusterIdentity, signal?: AbortSignal) => Promise<InfraResult<null>>",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "validateAsync",
+        "kind": "method",
+        "type": "(spec: MinikubeClusterSpec, signal?: AbortSignal) => Promise<InfraResult<null>>",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "waitUntilReadyAsync",
+        "kind": "method",
+        "type": "(identity: MinikubeClusterIdentity, signal?: AbortSignal) => Promise<InfraResult<MinikubeClusterObservation>>",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "MinikubeDesiredState",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "unknown",
+    "modulePath": "src/types/minikubeRuntime.ts",
+    "sourceLocation": {
+      "filePath": "src/types/minikubeRuntime.ts",
+      "line": 66,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "MinikubeEndpointOutput",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "unknown",
+    "modulePath": "src/types/minikubeRuntime.ts",
+    "sourceLocation": {
+      "filePath": "src/types/minikubeRuntime.ts",
+      "line": 35,
+      "column": 1
     },
     "exportPaths": ["src/index.ts"],
     "relatedSymbols": [],
