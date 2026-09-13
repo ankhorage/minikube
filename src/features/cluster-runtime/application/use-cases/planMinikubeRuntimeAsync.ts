@@ -30,10 +30,12 @@ export async function planMinikubeRuntimeAsync(
   const owner = createMinikubeClusterOwner(context, spec.value);
   const cluster = createClusterPlan(owner, observed.value);
   const request = createKubernetesDriverRequest(context, desired);
-  const workload =
-    observed.value.api === undefined
-      ? await createPreClusterPlanAsync(request, owner.identity)
-      : await createKubernetesDriver({ api: observed.value.api }).planAsync(request);
+  if (observed.value.api === undefined && observed.value.state !== 'absent') {
+    return missingPlanAccess();
+  }
+  const workload = observed.value.api
+    ? await createKubernetesDriver({ api: observed.value.api }).planAsync(request)
+    : await createPreClusterPlanAsync(request, owner.identity);
   if (!workload.ok) return workload;
   return {
     ok: true,
@@ -48,13 +50,31 @@ function createClusterPlan(
   observed: MinikubeClusterObservation,
 ): InfraPlanAction {
   const operation =
-    observed.state === 'absent' ? 'create' : observed.configurationMatches ? 'noop' : 'update';
+    observed.state === 'absent'
+      ? 'create'
+      : observed.state === 'ready' && observed.configurationMatches
+        ? 'noop'
+        : 'update';
   return {
     owner: owner.identity,
     operation,
     impact: operation === 'update' ? 'interrupts-service' : 'none',
     detail: `Minikube profile ${owner.externalId}: ${operation}.`,
     dependsOn: [],
+  };
+}
+
+/*** Refuse to guess at existing workload changes while the cluster API is unavailable. */
+function missingPlanAccess(): InfraResult<never> {
+  return {
+    ok: false,
+    diagnostics: [
+      {
+        severity: 'error',
+        code: 'minikube-plan-access-required',
+        message: 'Minikube must be running so existing Kubernetes resources can be planned safely.',
+      },
+    ],
   };
 }
 
