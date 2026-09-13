@@ -4,7 +4,7 @@
 
 Kind: `function`
 Module: `src/features/cluster-runtime/composition/createInfraAdapter.ts`
-Source: `src/features/cluster-runtime/composition/createInfraAdapter.ts:20:1`
+Source: `src/features/cluster-runtime/composition/createInfraAdapter.ts:21:1`
 
 Create the canonical Minikube runtime adapter entrypoint.
 
@@ -13,9 +13,21 @@ reconciliation are delegated to the published Kubernetes driver.
 
 ### Signatures
 
-- `(options: MinikubeAdapterOptions) => InfraRuntimeAdapter<"minikube">`
-  - options: `MinikubeAdapterOptions`
+- `(options?: MinikubeAdapterOptions | undefined) => InfraRuntimeAdapter<"minikube">`
+  - options: `MinikubeAdapterOptions | undefined` (optional)
   - returns: `InfraRuntimeAdapter<"minikube">`
+
+## createMinikubeCliControlPlane
+
+Kind: `function`
+Module: `src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts`
+Source: `src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts:25:1`
+
+### Signatures
+
+- `(options?: MinikubeCliControlPlaneOptions) => MinikubeControlPlane`
+  - options: `MinikubeCliControlPlaneOptions` (optional)
+  - returns: `MinikubeControlPlane`
 
 ## infraAdapterDescriptor
 
@@ -35,11 +47,28 @@ Source: `src/types/minikubeRuntime.ts:11:1`
 | ------------ | -------- | ---------------------- | -------- | ----------- |
 | controlPlane | property | `MinikubeControlPlane` | yes      |             |
 
+## MinikubeCliControlPlaneOptions
+
+Kind: `type`
+Module: `src/types/minikubeRuntime.ts`
+Source: `src/types/minikubeRuntime.ts:32:1`
+
+### Members
+
+| Name                    | Kind     | Type                                   | Required | Description |
+| ----------------------- | -------- | -------------------------------------- | -------- | ----------- |
+| executable              | property | `string \| undefined`                  | no       |             |
+| kubectlExecutable       | property | `string \| undefined`                  | no       |             |
+| kubectlRunner           | property | `KubernetesCommandRunner \| undefined` | no       |             |
+| pollIntervalMs          | property | `number \| undefined`                  | no       |             |
+| readinessTimeoutSeconds | property | `number \| undefined`                  | no       |             |
+| runner                  | property | `MinikubeCommandRunner \| undefined`   | no       |             |
+
 ## MinikubeClusterIdentity
 
 Kind: `type`
 Module: `src/types/minikubeRuntime.ts`
-Source: `src/types/minikubeRuntime.ts:15:1`
+Source: `src/types/minikubeRuntime.ts:41:1`
 
 ### Members
 
@@ -53,7 +82,7 @@ Source: `src/types/minikubeRuntime.ts:15:1`
 
 Kind: `type`
 Module: `src/types/minikubeRuntime.ts`
-Source: `src/types/minikubeRuntime.ts:28:1`
+Source: `src/types/minikubeRuntime.ts:54:1`
 
 ### Members
 
@@ -68,7 +97,7 @@ Source: `src/types/minikubeRuntime.ts:28:1`
 
 Kind: `type`
 Module: `src/types/minikubeRuntime.ts`
-Source: `src/types/minikubeRuntime.ts:21:1`
+Source: `src/types/minikubeRuntime.ts:47:1`
 
 ### Members
 
@@ -82,11 +111,51 @@ Source: `src/types/minikubeRuntime.ts:21:1`
 | projectId   | property | `string`                                                                                                                                                | yes      |             |
 | target      | property | `{ readonly id: string; readonly os: "linux" \| "darwin" \| "windows"; readonly architecture: "amd64" \| "arm64"; } & { readonly kind: "local-host"; }` | yes      |             |
 
+## MinikubeCommandRequest
+
+Kind: `type`
+Module: `src/types/minikubeRuntime.ts`
+Source: `src/types/minikubeRuntime.ts:15:1`
+
+### Members
+
+| Name       | Kind     | Type                       | Required | Description |
+| ---------- | -------- | -------------------------- | -------- | ----------- |
+| arguments  | property | `readonly string[]`        | yes      |             |
+| executable | property | `string`                   | yes      |             |
+| signal     | property | `AbortSignal \| undefined` | no       |             |
+
+## MinikubeCommandResult
+
+Kind: `type`
+Module: `src/types/minikubeRuntime.ts`
+Source: `src/types/minikubeRuntime.ts:21:1`
+
+### Members
+
+| Name     | Kind     | Type     | Required | Description |
+| -------- | -------- | -------- | -------- | ----------- |
+| exitCode | property | `number` | yes      |             |
+| stderr   | property | `string` | yes      |             |
+| stdout   | property | `string` | yes      |             |
+
+## MinikubeCommandRunner
+
+Kind: `type`
+Module: `src/types/minikubeRuntime.ts`
+Source: `src/types/minikubeRuntime.ts:28:1`
+
+### Members
+
+| Name     | Kind   | Type                                                                  | Required | Description |
+| -------- | ------ | --------------------------------------------------------------------- | -------- | ----------- |
+| runAsync | method | `(request: MinikubeCommandRequest) => Promise<MinikubeCommandResult>` | yes      |             |
+
 ## MinikubeControlPlane
 
 Kind: `type`
 Module: `src/types/minikubeRuntime.ts`
-Source: `src/types/minikubeRuntime.ts:38:1`
+Source: `src/types/minikubeRuntime.ts:64:1`
 
 ### Members
 
@@ -105,10 +174,10 @@ Source: `src/types/minikubeRuntime.ts:38:1`
 
 Kind: `unknown`
 Module: `src/types/minikubeRuntime.ts`
-Source: `src/types/minikubeRuntime.ts:66:1`
+Source: `src/types/minikubeRuntime.ts:92:1`
 
 ## MinikubeEndpointOutput
 
 Kind: `unknown`
 Module: `src/types/minikubeRuntime.ts`
-Source: `src/types/minikubeRuntime.ts:35:1`
+Source: `src/types/minikubeRuntime.ts:61:1`

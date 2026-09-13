@@ -22,14 +22,14 @@ it('plans and converges the complete local runtime lifecycle', async () => {
   expect(controlPlane.calls).toContain('endpoints:api');
   const converged = await adapter.planAsync(context, desired);
   expect(converged.ok && converged.value.every(({ operation }) => operation === 'noop')).toBe(true);
-  const status = await adapter.statusAsync(context);
+  const status = await adapter.statusAsync(context, desired);
   expect(status.ok && status.value.every(({ state }) => state === 'ready')).toBe(true);
 
-  expect((await adapter.suspendAsync(context)).ok).toBe(true);
+  expect((await adapter.suspendAsync(context, desired)).ok).toBe(true);
   expect(controlPlane.state).toBe('stopped');
   expect((await adapter.planAsync(context, desired)).ok).toBe(false);
   expect((await adapter.ensureAsync(context, desired)).ok).toBe(true);
-  expect((await adapter.destroyAsync(context, createDestroyRequest())).ok).toBe(true);
+  expect((await adapter.destroyAsync(context, desired, createDestroyRequest())).ok).toBe(true);
   expect(controlPlane.state).toBe('absent');
 });
 
@@ -40,7 +40,7 @@ it('retains the Minikube cluster when persistent workload data is not authorized
   const desired = createDesired(true);
   expect((await adapter.ensureAsync(context, desired)).ok).toBe(true);
 
-  const result = await adapter.destroyAsync(context, createDestroyRequest());
+  const result = await adapter.destroyAsync(context, desired, createDestroyRequest());
   expect(result.ok && result.value.resources.some(({ persistent }) => persistent)).toBe(true);
   expect(controlPlane.calls).not.toContain('destroy');
 });
@@ -50,9 +50,10 @@ it('refuses cluster deletion while retained resources cannot be inspected', asyn
   const adapter = createInfraAdapter({ controlPlane });
   const context = createContext();
   expect((await adapter.ensureAsync(context, createDesired())).ok).toBe(true);
-  expect((await adapter.suspendAsync(context)).ok).toBe(true);
+  const desired = createDesired();
+  expect((await adapter.suspendAsync(context, desired)).ok).toBe(true);
 
-  const result = await adapter.destroyAsync(context, createDestroyRequest());
+  const result = await adapter.destroyAsync(context, desired, createDestroyRequest());
   expect(result.ok).toBe(false);
   expect(controlPlane.calls).not.toContain('destroy');
 });

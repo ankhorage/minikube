@@ -3,7 +3,7 @@
 
 # @ankhorage/minikube
 
-![license: MIT](././paradox/badges/license.svg) ![npm: v0.1.0](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![docs: paradox](././paradox/badges/docs.svg)
+![license: MIT](././paradox/badges/license.svg) ![npm: v0.2.1](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![docs: paradox](././paradox/badges/docs.svg)
 
 Minikube runtime adapter for provider-neutral Ankhorage infrastructure.
 
@@ -15,6 +15,8 @@ Minikube runtime adapter for provider-neutral Ankhorage infrastructure.
 - [Architecture overview](././paradox/diagrams/architecture-overview.mmd)
 - [Module relationships](././paradox/diagrams/module-relationships.mmd)
 - [Export graph](././paradox/diagrams/export-graph.mmd)
+- [createInfraAdapter sequence](././paradox/diagrams/sequences/create-infra-adapter.mmd)
+- [createMinikubeCliControlPlane sequence](././paradox/diagrams/sequences/create-minikube-cli-control-plane.mmd)
 
 ## Public API
 
@@ -24,7 +26,7 @@ Minikube runtime adapter for provider-neutral Ankhorage infrastructure.
 <summary>createInfraAdapter</summary>
 
 ```ts
-createInfraAdapter(options: MinikubeAdapterOptions) => InfraRuntimeAdapter<"minikube">
+createInfraAdapter(options?: MinikubeAdapterOptions | undefined) => InfraRuntimeAdapter<"minikube">
 ```
 
 Create the canonical Minikube runtime adapter entrypoint.
@@ -33,7 +35,7 @@ The caller supplies a Minikube-specific command boundary. Standard workload proj
 reconciliation are delegated to the published Kubernetes driver.
 
 Module: `src/features/cluster-runtime/composition/createInfraAdapter.ts`
-Source: `src/features/cluster-runtime/composition/createInfraAdapter.ts:20:1`
+Source: `src/features/cluster-runtime/composition/createInfraAdapter.ts:21:1`
 Related symbols: `MinikubeAdapterOptions`
 
 </details>

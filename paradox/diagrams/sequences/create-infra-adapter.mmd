@@ -1,0 +1,17 @@
+sequenceDiagram
+  participant participant_assertNonNegativeInteger as assertNonNegativeInteger
+  participant participant_assertPositiveInteger as assertPositiveInteger
+  participant participant_createControlPlane as createControlPlane
+  participant participant_createInfraAdapter as createInfraAdapter
+  participant participant_createMinikubeCliControlPlane as createMinikubeCliControlPlane
+  participant participant_createSubprocessMinikubeCommandRunner as createSubprocessMinikubeCommandRunner
+  participant_createInfraAdapter->>participant_createMinikubeCliControlPlane: createMinikubeCliControlPlane()
+  participant_createMinikubeCliControlPlane->>participant_createSubprocessMinikubeCommandRunner: createSubprocessMinikubeCommandRunner()
+  participant_createSubprocessMinikubeCommandRunner-->>participant_createMinikubeCliControlPlane: return
+  participant_createMinikubeCliControlPlane->>participant_assertNonNegativeInteger: assertNonNegativeInteger()
+  participant_assertNonNegativeInteger-->>participant_createMinikubeCliControlPlane: return
+  participant_createMinikubeCliControlPlane->>participant_assertPositiveInteger: assertPositiveInteger()
+  participant_assertPositiveInteger-->>participant_createMinikubeCliControlPlane: return
+  participant_createMinikubeCliControlPlane->>participant_createControlPlane: createControlPlane()
+  participant_createControlPlane-->>participant_createMinikubeCliControlPlane: return
+  participant_createMinikubeCliControlPlane-->>participant_createInfraAdapter: return

@@ -1,0 +1,152 @@
+import { expect, it } from 'bun:test';
+
+import { createSubprocessMinikubeCommandRunner } from './features/cluster-runtime/adapters/createSubprocessMinikubeCommandRunner';
+import type {
+  MinikubeClusterSpec,
+  MinikubeCommandRequest,
+  MinikubeCommandResult,
+  MinikubeCommandRunner,
+} from './index';
+import { createMinikubeCliControlPlane } from './index';
+
+it('operates one exact Minikube profile through the stateless CLI boundary', async () => {
+  const runner = new FakeMinikubeCommandRunner();
+  const controlPlane = createMinikubeCliControlPlane({
+    runner,
+    kubectlRunner: { runAsync: (request) => runner.runAsync(request) },
+    pollIntervalMs: 0,
+    readinessTimeoutSeconds: 1,
+  });
+  const spec = createSpec();
+
+  expect((await controlPlane.validateAsync(spec)).ok).toBe(true);
+  const absent = await controlPlane.inspectAsync(spec);
+  expect(absent.ok && absent.value.state === 'absent').toBe(true);
+
+  const ensured = await controlPlane.ensureAsync(spec);
+  expect(ensured.ok && ensured.value.state === 'ready').toBe(true);
+  expect(ensured.ok && ensured.value.configurationMatches).toBe(true);
+  expect(ensured.ok && ensured.value.api !== undefined).toBe(true);
+  expect(
+    runner.calls.some(
+      ({ arguments: arguments_ }) =>
+        arguments_.join(' ') ===
+        'start -p sample-local --driver=docker --interactive=false --addons=ingress --cpus=3 --memory=4096mb',
+    ),
+  ).toBe(true);
+
+  expect((await controlPlane.waitUntilReadyAsync(spec)).ok).toBe(true);
+  expect((await controlPlane.loadImagesAsync(spec, ['registry.example/api:1'])).ok).toBe(true);
+  const endpoints = await controlPlane.repairEndpointsAsync(spec, [
+    {
+      id: 'api',
+      artifact: { kind: 'image', image: 'registry.example/api:1' },
+      ports: [{ name: 'http', port: 8080 }],
+      exposure: 'public',
+    },
+  ]);
+  expect(endpoints.ok && endpoints.value[0]?.value).toBe('http://127.0.0.1:49152');
+
+  expect((await controlPlane.suspendAsync(spec)).ok).toBe(true);
+  expect(runner.state).toBe('stopped');
+  expect((await controlPlane.destroyAsync(spec)).ok).toBe(true);
+  expect(runner.state).toBe('absent');
+});
+
+it('reports profile drift and sanitizes failed provider output', async () => {
+  const runner = new FakeMinikubeCommandRunner();
+  runner.state = 'ready';
+  runner.driver = 'podman';
+  const controlPlane = createMinikubeCliControlPlane({ runner });
+  const observed = await controlPlane.inspectAsync(createSpec());
+  expect(observed.ok && observed.value.configurationMatches).toBe(false);
+
+  runner.failNext = true;
+  const failed = await controlPlane.validateAsync(createSpec());
+  expect(failed.ok).toBe(false);
+  expect(JSON.stringify(failed)).not.toContain('provider-secret-output');
+});
+
+it('executes concrete Minikube commands without a shell', async () => {
+  const runner = createSubprocessMinikubeCommandRunner();
+  const result = await runner.runAsync({
+    executable: process.execPath,
+    arguments: ['-e', 'process.stdout.write("minikube-runner-ok")'],
+  });
+  expect(result.exitCode).toBe(0);
+  expect(result.stdout).toBe('minikube-runner-ok');
+});
+
+function createSpec(): MinikubeClusterSpec {
+  return {
+    projectId: 'sample',
+    environment: 'local',
+    profile: 'sample-local',
+    target: { id: 'host', kind: 'local-host', os: 'darwin', architecture: 'arm64' },
+    driver: 'docker',
+    cpus: 3,
+    memoryMiB: 4096,
+  };
+}
+
+class FakeMinikubeCommandRunner implements MinikubeCommandRunner {
+  readonly calls: MinikubeCommandRequest[] = [];
+  state: 'absent' | 'ready' | 'stopped' = 'absent';
+  driver = 'docker';
+  failNext = false;
+
+  runAsync(request: MinikubeCommandRequest): Promise<MinikubeCommandResult> {
+    this.calls.push(request);
+    if (this.failNext) {
+      this.failNext = false;
+      return result(1, '', 'provider-secret-output');
+    }
+    if (request.executable !== 'minikube') return result(0);
+    const [command, subcommand] = request.arguments;
+    if (command === 'version') return result(0, '{}');
+    if (command === 'profile' && subcommand === 'list') return result(0, this.profileList());
+    if (command === 'status') {
+      return this.state === 'ready'
+        ? result(0, 'Running|Running|Running|Configured')
+        : result(7, 'Stopped|Stopped|Stopped|Misconfigured');
+    }
+    if (command === 'start') {
+      this.state = 'ready';
+      return result(0);
+    }
+    if (command === 'service' && subcommand === 'list') {
+      return result(
+        0,
+        JSON.stringify({ services: [{ name: 'api', urls: ['http://127.0.0.1:49152'] }] }),
+      );
+    }
+    if (command === 'stop') {
+      this.state = 'stopped';
+      return result(0);
+    }
+    if (command === 'delete') {
+      this.state = 'absent';
+      return result(0);
+    }
+    return result(0);
+  }
+
+  private profileList(): string {
+    return JSON.stringify({
+      invalid: [],
+      valid:
+        this.state === 'absent'
+          ? []
+          : [
+              {
+                Name: 'sample-local',
+                Config: { Driver: this.driver, CPUs: 3, Memory: 4096 },
+              },
+            ],
+    });
+  }
+}
+
+function result(exitCode: number, stdout = '', stderr = ''): Promise<MinikubeCommandResult> {
+  return Promise.resolve({ exitCode, stdout, stderr });
+}

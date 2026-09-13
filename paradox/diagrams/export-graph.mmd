@@ -1,6 +1,11 @@
 graph LR
   module_examples_basic_usage_index_ts["examples/basic-usage/index.ts"]
   module_src_constants_infra_ts["src/constants/infra.ts"]
+  module_src_features_cluster_runtime_adapters_createMinikubeCliControlPlane_ts["src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts"]
+  module_src_features_cluster_runtime_adapters_createSubprocessMinikubeCommandRunner_ts["src/features/cluster-runtime/adapters/createSubprocessMinikubeCommandRunner.ts"]
+  module_src_features_cluster_runtime_adapters_inspectMinikubeAsync_ts["src/features/cluster-runtime/adapters/inspectMinikubeAsync.ts"]
+  module_src_features_cluster_runtime_adapters_minikubeCliProcess_ts["src/features/cluster-runtime/adapters/minikubeCliProcess.ts"]
+  module_src_features_cluster_runtime_adapters_readMinikubeEndpointsAsync_ts["src/features/cluster-runtime/adapters/readMinikubeEndpointsAsync.ts"]
   module_src_features_cluster_runtime_application_use_cases_destroyMinikubeRuntimeAsync_ts["src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts"]
   module_src_features_cluster_runtime_application_use_cases_ensureMinikubeRuntimeAsync_ts["src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts"]
   module_src_features_cluster_runtime_application_use_cases_getMinikubeStatusAsync_ts["src/features/cluster-runtime/application/use-cases/getMinikubeStatusAsync.ts"]
@@ -14,23 +19,39 @@ graph LR
   module_src_features_cluster_runtime_utils_getMinikubeClusterSpec_ts["src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts"]
   module_src_index_ts["src/index.ts"]
   module_src_infraAdapter_test_ts["src/infraAdapter.test.ts"]
+  module_src_minikubeCliControlPlane_test_ts["src/minikubeCliControlPlane.test.ts"]
   module_src_minikubeRuntime_test_ts["src/minikubeRuntime.test.ts"]
   module_src_runtimeFixtures_test_ts["src/runtimeFixtures.test.ts"]
   module_src_types_minikubeRuntime_ts["src/types/minikubeRuntime.ts"]
   export_createInfraAdapter["createInfraAdapter"]
   module_src_features_cluster_runtime_composition_createInfraAdapter_ts --> export_createInfraAdapter
   export_createInfraAdapter -.-> export_MinikubeAdapterOptions
+  export_createMinikubeCliControlPlane["createMinikubeCliControlPlane"]
+  module_src_features_cluster_runtime_adapters_createMinikubeCliControlPlane_ts --> export_createMinikubeCliControlPlane
+  export_createMinikubeCliControlPlane -.-> export_MinikubeCliControlPlaneOptions
+  export_createMinikubeCliControlPlane -.-> export_MinikubeControlPlane
   export_infraAdapterDescriptor["infraAdapterDescriptor"]
   module_src_constants_infra_ts --> export_infraAdapterDescriptor
   export_MinikubeAdapterOptions["MinikubeAdapterOptions"]
   module_src_types_minikubeRuntime_ts --> export_MinikubeAdapterOptions
   export_MinikubeAdapterOptions -.-> export_MinikubeControlPlane
+  export_MinikubeCliControlPlaneOptions["MinikubeCliControlPlaneOptions"]
+  module_src_types_minikubeRuntime_ts --> export_MinikubeCliControlPlaneOptions
+  export_MinikubeCliControlPlaneOptions -.-> export_MinikubeCommandRunner
   export_MinikubeClusterIdentity["MinikubeClusterIdentity"]
   module_src_types_minikubeRuntime_ts --> export_MinikubeClusterIdentity
   export_MinikubeClusterObservation["MinikubeClusterObservation"]
   module_src_types_minikubeRuntime_ts --> export_MinikubeClusterObservation
   export_MinikubeClusterSpec["MinikubeClusterSpec"]
   module_src_types_minikubeRuntime_ts --> export_MinikubeClusterSpec
+  export_MinikubeCommandRequest["MinikubeCommandRequest"]
+  module_src_types_minikubeRuntime_ts --> export_MinikubeCommandRequest
+  export_MinikubeCommandResult["MinikubeCommandResult"]
+  module_src_types_minikubeRuntime_ts --> export_MinikubeCommandResult
+  export_MinikubeCommandRunner["MinikubeCommandRunner"]
+  module_src_types_minikubeRuntime_ts --> export_MinikubeCommandRunner
+  export_MinikubeCommandRunner -.-> export_MinikubeCommandRequest
+  export_MinikubeCommandRunner -.-> export_MinikubeCommandResult
   export_MinikubeControlPlane["MinikubeControlPlane"]
   module_src_types_minikubeRuntime_ts --> export_MinikubeControlPlane
   export_MinikubeControlPlane -.-> export_MinikubeClusterIdentity

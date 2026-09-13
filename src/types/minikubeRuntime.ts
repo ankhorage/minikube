@@ -6,10 +6,36 @@ import type {
   InfraRuntimeDesiredState,
   InfraWorkloadSpec,
 } from '@ankhorage/contracts/infra';
-import type { KubernetesApi } from '@ankhorage/kubernetes';
+import type { KubernetesApi, KubernetesCommandRunner } from '@ankhorage/kubernetes';
 
 export interface MinikubeAdapterOptions {
   readonly controlPlane: MinikubeControlPlane;
+}
+
+export interface MinikubeCommandRequest {
+  readonly executable: string;
+  readonly arguments: readonly string[];
+  readonly signal?: AbortSignal;
+}
+
+export interface MinikubeCommandResult {
+  readonly exitCode: number;
+  readonly stdout: string;
+  readonly stderr: string;
+}
+
+/** Shell-free process boundary for Minikube-specific CLI commands. */
+export interface MinikubeCommandRunner {
+  runAsync(request: MinikubeCommandRequest): Promise<MinikubeCommandResult>;
+}
+
+export interface MinikubeCliControlPlaneOptions {
+  readonly executable?: string;
+  readonly kubectlExecutable?: string;
+  readonly runner?: MinikubeCommandRunner;
+  readonly kubectlRunner?: KubernetesCommandRunner;
+  readonly pollIntervalMs?: number;
+  readonly readinessTimeoutSeconds?: number;
 }
 
 export interface MinikubeClusterIdentity {

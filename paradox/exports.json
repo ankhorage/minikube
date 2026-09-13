@@ -8,23 +8,55 @@
     "modulePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
     "sourceLocation": {
       "filePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
-      "line": 20,
+      "line": 21,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
     "relatedSymbols": ["MinikubeAdapterOptions"],
     "signatures": [
       {
-        "label": "(options: MinikubeAdapterOptions) => InfraRuntimeAdapter<\"minikube\">",
+        "label": "(options?: MinikubeAdapterOptions | undefined) => InfraRuntimeAdapter<\"minikube\">",
         "parameters": [
           {
             "name": "options",
-            "type": "MinikubeAdapterOptions",
-            "required": true,
+            "type": "MinikubeAdapterOptions | undefined",
+            "required": false,
             "description": null
           }
         ],
         "returnType": "InfraRuntimeAdapter<\"minikube\">",
+        "returnDescription": null
+      }
+    ],
+    "members": [],
+    "structuredRows": []
+  },
+  {
+    "name": "createMinikubeCliControlPlane",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "function",
+    "modulePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
+    "sourceLocation": {
+      "filePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
+      "line": 25,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["MinikubeCliControlPlaneOptions", "MinikubeControlPlane"],
+    "signatures": [
+      {
+        "label": "(options?: MinikubeCliControlPlaneOptions) => MinikubeControlPlane",
+        "parameters": [
+          {
+            "name": "options",
+            "type": "MinikubeCliControlPlaneOptions",
+            "required": false,
+            "description": null
+          }
+        ],
+        "returnType": "MinikubeControlPlane",
         "returnDescription": null
       }
     ],
@@ -76,6 +108,67 @@
     "structuredRows": []
   },
   {
+    "name": "MinikubeCliControlPlaneOptions",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/minikubeRuntime.ts",
+    "sourceLocation": {
+      "filePath": "src/types/minikubeRuntime.ts",
+      "line": 32,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["MinikubeCommandRunner"],
+    "signatures": [],
+    "members": [
+      {
+        "name": "executable",
+        "kind": "property",
+        "type": "string | undefined",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "kubectlExecutable",
+        "kind": "property",
+        "type": "string | undefined",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "kubectlRunner",
+        "kind": "property",
+        "type": "KubernetesCommandRunner | undefined",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "pollIntervalMs",
+        "kind": "property",
+        "type": "number | undefined",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "readinessTimeoutSeconds",
+        "kind": "property",
+        "type": "number | undefined",
+        "required": false,
+        "description": null
+      },
+      {
+        "name": "runner",
+        "kind": "property",
+        "type": "MinikubeCommandRunner | undefined",
+        "required": false,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
     "name": "MinikubeClusterIdentity",
     "description": null,
     "isReadme": false,
@@ -84,7 +177,7 @@
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
       "filePath": "src/types/minikubeRuntime.ts",
-      "line": 15,
+      "line": 41,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -124,7 +217,7 @@
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
       "filePath": "src/types/minikubeRuntime.ts",
-      "line": 28,
+      "line": 54,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -171,7 +264,7 @@
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
       "filePath": "src/types/minikubeRuntime.ts",
-      "line": 21,
+      "line": 47,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -231,6 +324,112 @@
     "structuredRows": []
   },
   {
+    "name": "MinikubeCommandRequest",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/minikubeRuntime.ts",
+    "sourceLocation": {
+      "filePath": "src/types/minikubeRuntime.ts",
+      "line": 15,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [
+      {
+        "name": "arguments",
+        "kind": "property",
+        "type": "readonly string[]",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "executable",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "signal",
+        "kind": "property",
+        "type": "AbortSignal | undefined",
+        "required": false,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "MinikubeCommandResult",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/minikubeRuntime.ts",
+    "sourceLocation": {
+      "filePath": "src/types/minikubeRuntime.ts",
+      "line": 21,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": [],
+    "signatures": [],
+    "members": [
+      {
+        "name": "exitCode",
+        "kind": "property",
+        "type": "number",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "stderr",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "stdout",
+        "kind": "property",
+        "type": "string",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
+    "name": "MinikubeCommandRunner",
+    "description": null,
+    "isReadme": false,
+    "examples": [],
+    "kind": "type",
+    "modulePath": "src/types/minikubeRuntime.ts",
+    "sourceLocation": {
+      "filePath": "src/types/minikubeRuntime.ts",
+      "line": 28,
+      "column": 1
+    },
+    "exportPaths": ["src/index.ts"],
+    "relatedSymbols": ["MinikubeCommandRequest", "MinikubeCommandResult"],
+    "signatures": [],
+    "members": [
+      {
+        "name": "runAsync",
+        "kind": "method",
+        "type": "(request: MinikubeCommandRequest) => Promise<MinikubeCommandResult>",
+        "required": true,
+        "description": null
+      }
+    ],
+    "structuredRows": []
+  },
+  {
     "name": "MinikubeControlPlane",
     "description": null,
     "isReadme": false,
@@ -239,7 +438,7 @@
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
       "filePath": "src/types/minikubeRuntime.ts",
-      "line": 38,
+      "line": 64,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -319,7 +518,7 @@
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
       "filePath": "src/types/minikubeRuntime.ts",
-      "line": 66,
+      "line": 92,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -337,7 +536,7 @@
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
       "filePath": "src/types/minikubeRuntime.ts",
-      "line": 35,
+      "line": 61,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],

@@ -4,7 +4,10 @@ import type {
   InfraResult,
 } from '@ankhorage/contracts/infra';
 
-import type { MinikubeAdapterOptions } from '../../../../types/minikubeRuntime';
+import type {
+  MinikubeAdapterOptions,
+  MinikubeDesiredState,
+} from '../../../../types/minikubeRuntime';
 import { createMinikubeClusterOwner } from '../../utils/createMinikubeClusterOwner';
 import { getMinikubeClusterIdentity } from '../../utils/getMinikubeClusterIdentity';
 
@@ -12,6 +15,7 @@ import { getMinikubeClusterIdentity } from '../../utils/getMinikubeClusterIdenti
 export async function suspendMinikubeRuntimeAsync(
   options: MinikubeAdapterOptions,
   context: InfraExecutionContext,
+  _desired: MinikubeDesiredState,
 ): Promise<InfraResult<InfraReconcileResult>> {
   const identity = getMinikubeClusterIdentity(context);
   if (!identity.ok) return identity;
