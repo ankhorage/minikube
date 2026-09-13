@@ -2,6 +2,7 @@ import { INFRA_ADAPTER_CATALOG, isInfraAdapterDescriptor } from '@ankhorage/cont
 import { describe, expect, it } from 'bun:test';
 
 import { createInfraAdapter, infraAdapterDescriptor } from './index';
+import { FakeMinikubeControlPlane } from './runtimeFixtures.test';
 
 describe('Minikube runtime adapter foundation', () => {
   it('exports the exact Contracts catalog descriptor', () => {
@@ -19,6 +20,7 @@ describe('Minikube runtime adapter foundation', () => {
   });
 
   it('exposes the canonical implementation entrypoint', () => {
-    expect(createInfraAdapter().descriptor).toBe(infraAdapterDescriptor);
+    const controlPlane = new FakeMinikubeControlPlane();
+    expect(createInfraAdapter({ controlPlane }).descriptor).toBe(infraAdapterDescriptor);
   });
 });

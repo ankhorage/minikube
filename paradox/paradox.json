@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.0.0",
+      "value": "v0.1.0",
       "color": "cb3837"
     },
     {
@@ -81,43 +81,185 @@
       "exports": ["infraAdapterDescriptor"]
     },
     {
+      "path": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/cluster-runtime/utils/createMinikubeClusterOwner.ts",
+        "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
+        "src/types/minikubeRuntime.ts"
+      ],
+      "exports": ["destroyMinikubeRuntimeAsync"]
+    },
+    {
+      "path": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/cluster-runtime/application/use-cases/validateMinikubeRuntimeAsync.ts",
+        "src/features/cluster-runtime/utils/createKubernetesDriverRequest.ts",
+        "src/features/cluster-runtime/utils/createMinikubeClusterOwner.ts",
+        "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts",
+        "src/types/minikubeRuntime.ts"
+      ],
+      "exports": ["ensureMinikubeRuntimeAsync"]
+    },
+    {
+      "path": "src/features/cluster-runtime/application/use-cases/getMinikubeStatusAsync.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/cluster-runtime/utils/createMinikubeClusterOwner.ts",
+        "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
+        "src/types/minikubeRuntime.ts"
+      ],
+      "exports": ["getMinikubeStatusAsync"]
+    },
+    {
+      "path": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/cluster-runtime/application/use-cases/validateMinikubeRuntimeAsync.ts",
+        "src/features/cluster-runtime/utils/createKubernetesDriverRequest.ts",
+        "src/features/cluster-runtime/utils/createMinikubeClusterOwner.ts",
+        "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts",
+        "src/types/minikubeRuntime.ts"
+      ],
+      "exports": ["planMinikubeRuntimeAsync"]
+    },
+    {
+      "path": "src/features/cluster-runtime/application/use-cases/suspendMinikubeRuntimeAsync.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/cluster-runtime/utils/createMinikubeClusterOwner.ts",
+        "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
+        "src/types/minikubeRuntime.ts"
+      ],
+      "exports": ["suspendMinikubeRuntimeAsync"]
+    },
+    {
+      "path": "src/features/cluster-runtime/application/use-cases/validateMinikubeRuntimeAsync.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts",
+        "src/types/minikubeRuntime.ts"
+      ],
+      "exports": ["validateMinikubeRuntimeAsync"]
+    },
+    {
       "path": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/constants/infra.ts"],
+      "dependencies": [
+        "src/constants/infra.ts",
+        "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
+        "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts",
+        "src/features/cluster-runtime/application/use-cases/getMinikubeStatusAsync.ts",
+        "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
+        "src/features/cluster-runtime/application/use-cases/suspendMinikubeRuntimeAsync.ts",
+        "src/features/cluster-runtime/application/use-cases/validateMinikubeRuntimeAsync.ts",
+        "src/types/minikubeRuntime.ts"
+      ],
       "exports": ["createInfraAdapter"]
+    },
+    {
+      "path": "src/features/cluster-runtime/utils/createKubernetesDriverRequest.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/types/minikubeRuntime.ts"],
+      "exports": ["createKubernetesDriverRequest"]
+    },
+    {
+      "path": "src/features/cluster-runtime/utils/createMinikubeClusterOwner.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/types/minikubeRuntime.ts"],
+      "exports": ["createMinikubeClusterOwner"]
+    },
+    {
+      "path": "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/types/minikubeRuntime.ts"],
+      "exports": ["getMinikubeClusterIdentity"]
+    },
+    {
+      "path": "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts",
+      "isEntrypoint": false,
+      "dependencies": [
+        "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
+        "src/types/minikubeRuntime.ts"
+      ],
+      "exports": ["getMinikubeClusterSpec"]
     },
     {
       "path": "src/index.ts",
       "isEntrypoint": true,
       "dependencies": [],
-      "exports": ["createInfraAdapter", "infraAdapterDescriptor"]
+      "exports": [
+        "createInfraAdapter",
+        "infraAdapterDescriptor",
+        "MinikubeAdapterOptions",
+        "MinikubeClusterIdentity",
+        "MinikubeClusterObservation",
+        "MinikubeClusterSpec",
+        "MinikubeControlPlane",
+        "MinikubeDesiredState",
+        "MinikubeEndpointOutput"
+      ]
     },
     {
       "path": "src/infraAdapter.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/index.ts"],
+      "dependencies": ["src/index.ts", "src/runtimeFixtures.test.ts"],
       "exports": []
+    },
+    {
+      "path": "src/minikubeRuntime.test.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/index.ts", "src/runtimeFixtures.test.ts"],
+      "exports": []
+    },
+    {
+      "path": "src/runtimeFixtures.test.ts",
+      "isEntrypoint": false,
+      "dependencies": ["src/index.ts"],
+      "exports": ["FakeMinikubeControlPlane"]
+    },
+    {
+      "path": "src/types/minikubeRuntime.ts",
+      "isEntrypoint": false,
+      "dependencies": [],
+      "exports": [
+        "MinikubeAdapterOptions",
+        "MinikubeClusterIdentity",
+        "MinikubeClusterObservation",
+        "MinikubeClusterSpec",
+        "MinikubeControlPlane",
+        "MinikubeDesiredState",
+        "MinikubeEndpointOutput"
+      ]
     }
   ],
   "exports": [
     {
       "name": "createInfraAdapter",
-      "description": "Create the canonical Minikube runtime adapter entrypoint.\n\nThe foundation exposes the released Contracts boundary and fails lifecycle calls explicitly\nuntil the provider implementation phase supplies its external adapters.",
+      "description": "Create the canonical Minikube runtime adapter entrypoint.\n\nThe caller supplies a Minikube-specific command boundary. Standard workload projection and\nreconciliation are delegated to the published Kubernetes driver.",
       "isReadme": true,
       "examples": [],
       "kind": "function",
       "modulePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
-        "line": 13,
+        "line": 20,
         "column": 1
       },
       "exportPaths": ["src/index.ts"],
-      "relatedSymbols": [],
+      "relatedSymbols": ["MinikubeAdapterOptions"],
       "signatures": [
         {
-          "label": "() => InfraRuntimeAdapter<\"minikube\">",
-          "parameters": [],
+          "label": "(options: MinikubeAdapterOptions) => InfraRuntimeAdapter<\"minikube\">",
+          "parameters": [
+            {
+              "name": "options",
+              "type": "MinikubeAdapterOptions",
+              "required": true,
+              "description": null
+            }
+          ],
           "returnType": "InfraRuntimeAdapter<\"minikube\">",
           "returnDescription": null
         }
@@ -142,25 +284,538 @@
       "signatures": [],
       "members": [],
       "structuredRows": []
+    },
+    {
+      "name": "MinikubeAdapterOptions",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/minikubeRuntime.ts",
+      "sourceLocation": {
+        "filePath": "src/types/minikubeRuntime.ts",
+        "line": 11,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": ["MinikubeControlPlane"],
+      "signatures": [],
+      "members": [
+        {
+          "name": "controlPlane",
+          "kind": "property",
+          "type": "MinikubeControlPlane",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "MinikubeClusterIdentity",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/minikubeRuntime.ts",
+      "sourceLocation": {
+        "filePath": "src/types/minikubeRuntime.ts",
+        "line": 15,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [
+        {
+          "name": "environment",
+          "kind": "property",
+          "type": "\"local\"",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "profile",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "projectId",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "MinikubeClusterObservation",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/minikubeRuntime.ts",
+      "sourceLocation": {
+        "filePath": "src/types/minikubeRuntime.ts",
+        "line": 28,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [
+        {
+          "name": "api",
+          "kind": "property",
+          "type": "KubernetesApi | undefined",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "configurationMatches",
+          "kind": "property",
+          "type": "boolean",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "detail",
+          "kind": "property",
+          "type": "string | undefined",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "state",
+          "kind": "property",
+          "type": "\"absent\" | \"pending\" | \"ready\" | \"degraded\" | \"stopped\" | \"retained\" | \"failed\" | \"unknown\"",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "MinikubeClusterSpec",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/minikubeRuntime.ts",
+      "sourceLocation": {
+        "filePath": "src/types/minikubeRuntime.ts",
+        "line": 21,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [
+        {
+          "name": "cpus",
+          "kind": "property",
+          "type": "number | undefined",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "driver",
+          "kind": "property",
+          "type": "\"docker\" | \"podman\"",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "environment",
+          "kind": "property",
+          "type": "\"local\"",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "memoryMiB",
+          "kind": "property",
+          "type": "number | undefined",
+          "required": false,
+          "description": null
+        },
+        {
+          "name": "profile",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "projectId",
+          "kind": "property",
+          "type": "string",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "target",
+          "kind": "property",
+          "type": "{ readonly id: string; readonly os: \"linux\" | \"darwin\" | \"windows\"; readonly architecture: \"amd64\" | \"arm64\"; } & { readonly kind: \"local-host\"; }",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "MinikubeControlPlane",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "type",
+      "modulePath": "src/types/minikubeRuntime.ts",
+      "sourceLocation": {
+        "filePath": "src/types/minikubeRuntime.ts",
+        "line": 38,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [
+        "MinikubeClusterIdentity",
+        "MinikubeClusterObservation",
+        "MinikubeClusterSpec",
+        "MinikubeEndpointOutput"
+      ],
+      "signatures": [],
+      "members": [
+        {
+          "name": "destroyAsync",
+          "kind": "method",
+          "type": "(identity: MinikubeClusterIdentity, signal?: AbortSignal) => Promise<InfraResult<null>>",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "ensureAsync",
+          "kind": "method",
+          "type": "(spec: MinikubeClusterSpec, signal?: AbortSignal) => Promise<InfraResult<MinikubeClusterObservation>>",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "inspectAsync",
+          "kind": "method",
+          "type": "(identity: MinikubeClusterIdentity, signal?: AbortSignal) => Promise<InfraResult<MinikubeClusterObservation>>",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "loadImagesAsync",
+          "kind": "method",
+          "type": "(identity: MinikubeClusterIdentity, images: readonly string[], signal?: AbortSignal) => Promise<InfraResult<null>>",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "repairEndpointsAsync",
+          "kind": "method",
+          "type": "(identity: MinikubeClusterIdentity, workloads: readonly InfraWorkloadSpec[], signal?: AbortSignal) => Promise<InfraResult<readonly MinikubeEndpointOutput[]>>",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "suspendAsync",
+          "kind": "method",
+          "type": "(identity: MinikubeClusterIdentity, signal?: AbortSignal) => Promise<InfraResult<null>>",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "validateAsync",
+          "kind": "method",
+          "type": "(spec: MinikubeClusterSpec, signal?: AbortSignal) => Promise<InfraResult<null>>",
+          "required": true,
+          "description": null
+        },
+        {
+          "name": "waitUntilReadyAsync",
+          "kind": "method",
+          "type": "(identity: MinikubeClusterIdentity, signal?: AbortSignal) => Promise<InfraResult<MinikubeClusterObservation>>",
+          "required": true,
+          "description": null
+        }
+      ],
+      "structuredRows": []
+    },
+    {
+      "name": "MinikubeDesiredState",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "unknown",
+      "modulePath": "src/types/minikubeRuntime.ts",
+      "sourceLocation": {
+        "filePath": "src/types/minikubeRuntime.ts",
+        "line": 66,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
+    },
+    {
+      "name": "MinikubeEndpointOutput",
+      "description": null,
+      "isReadme": false,
+      "examples": [],
+      "kind": "unknown",
+      "modulePath": "src/types/minikubeRuntime.ts",
+      "sourceLocation": {
+        "filePath": "src/types/minikubeRuntime.ts",
+        "line": 35,
+        "column": 1
+      },
+      "exportPaths": ["src/index.ts"],
+      "relatedSymbols": [],
+      "signatures": [],
+      "members": [],
+      "structuredRows": []
     }
   ],
   "components": [],
   "sourceFunctions": [
     {
-      "name": "createInfraAdapter",
-      "description": "Create the canonical Minikube runtime adapter entrypoint.\n\nThe foundation exposes the released Contracts boundary and fails lifecycle calls explicitly\nuntil the provider implementation phase supplies its external adapters.",
+      "name": "destroyMinikubeRuntimeAsync",
+      "description": "Remove owned workloads before deleting Minikube, retaining the cluster when data survives.",
       "sourceLocation": {
-        "filePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
+        "filePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
+        "line": 14,
+        "column": 1
+      }
+    },
+    {
+      "name": "missingDestroyAccess",
+      "description": "Refuse cluster deletion when persistent Kubernetes ownership cannot be inspected.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
+        "line": 48,
+        "column": 1
+      }
+    },
+    {
+      "name": "isConfirmed",
+      "description": "Require exact project and environment confirmation before any destructive inspection.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
+        "line": 62,
+        "column": 1
+      }
+    },
+    {
+      "name": "unconfirmedDestroy",
+      "description": "Return the canonical Minikube destructive-confirmation diagnostic.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
+        "line": 72,
+        "column": 1
+      }
+    },
+    {
+      "name": "ensureMinikubeRuntimeAsync",
+      "description": "Ensure the Minikube cluster, bridge images, reconcile workloads and repair local endpoints.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts",
+        "line": 19,
+        "column": 1
+      }
+    },
+    {
+      "name": "missingClusterAccess",
+      "description": "Reject a ready cluster observation that omitted authenticated Kubernetes access.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts",
+        "line": 63,
+        "column": 1
+      }
+    },
+    {
+      "name": "linkRootOwner",
+      "description": "Link root Kubernetes resources to the Minikube cluster owner.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts",
+        "line": 77,
+        "column": 1
+      }
+    },
+    {
+      "name": "getMinikubeStatusAsync",
+      "description": "Aggregate Minikube cluster and owned Kubernetes workload status.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/application/use-cases/getMinikubeStatusAsync.ts",
         "line": 13,
         "column": 1
       }
     },
     {
-      "name": "notImplementedAsync",
-      "description": "Reject lifecycle execution until this package's provider phase is implemented.",
+      "name": "planMinikubeRuntimeAsync",
+      "description": "Plan Minikube cluster and standard Kubernetes resources without mutation.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
+        "line": 19,
+        "column": 1
+      }
+    },
+    {
+      "name": "createClusterPlan",
+      "description": "Create the plan action for Minikube profile convergence.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
+        "line": 46,
+        "column": 1
+      }
+    },
+    {
+      "name": "createPreClusterPlanAsync",
+      "description": "Project create actions before cluster API access exists.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
+        "line": 62,
+        "column": 1
+      }
+    },
+    {
+      "name": "linkRootAction",
+      "description": "Link root Kubernetes actions to the Minikube cluster owner.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
+        "line": 82,
+        "column": 1
+      }
+    },
+    {
+      "name": "suspendMinikubeRuntimeAsync",
+      "description": "Stop the Minikube profile while preserving its cluster and persistent data.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/application/use-cases/suspendMinikubeRuntimeAsync.ts",
+        "line": 12,
+        "column": 1
+      }
+    },
+    {
+      "name": "validateMinikubeRuntimeAsync",
+      "description": "Validate Minikube selection, portable compute target and local control-plane prerequisites.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/application/use-cases/validateMinikubeRuntimeAsync.ts",
+        "line": 10,
+        "column": 1
+      }
+    },
+    {
+      "name": "createInfraAdapter",
+      "description": "Create the canonical Minikube runtime adapter entrypoint.\n\nThe caller supplies a Minikube-specific command boundary. Standard workload projection and\nreconciliation are delegated to the published Kubernetes driver.",
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
-        "line": 26,
+        "line": 20,
+        "column": 1
+      }
+    },
+    {
+      "name": "createKubernetesDriverRequest",
+      "description": "Map runtime desired state to the shared Kubernetes driver boundary.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/utils/createKubernetesDriverRequest.ts",
+        "line": 7,
+        "column": 1
+      }
+    },
+    {
+      "name": "createMinikubeClusterOwner",
+      "description": "Create canonical ownership for the selected Minikube profile.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/utils/createMinikubeClusterOwner.ts",
+        "line": 6,
+        "column": 1
+      }
+    },
+    {
+      "name": "getMinikubeClusterIdentity",
+      "description": "Resolve the active Minikube identity from the canonical environment selection.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
+        "line": 6,
+        "column": 1
+      }
+    },
+    {
+      "name": "toProfileName",
+      "description": "Normalize a project identity into a deterministic Minikube profile name.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
+        "line": 34,
+        "column": 1
+      }
+    },
+    {
+      "name": "getMinikubeClusterSpec",
+      "description": "Validate and create the local Minikube cluster specification.",
+      "sourceLocation": {
+        "filePath": "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts",
+        "line": 7,
+        "column": 1
+      }
+    },
+    {
+      "name": "createDesired",
+      "description": "Create a canonical local Minikube runtime request.",
+      "sourceLocation": {
+        "filePath": "src/minikubeRuntime.test.ts",
+        "line": 84,
+        "column": 1
+      }
+    },
+    {
+      "name": "createContext",
+      "description": "Create the execution-only environment context.",
+      "sourceLocation": {
+        "filePath": "src/minikubeRuntime.test.ts",
+        "line": 103,
+        "column": 1
+      }
+    },
+    {
+      "name": "createDestroyRequest",
+      "description": "Create exact non-persistent destruction confirmation.",
+      "sourceLocation": {
+        "filePath": "src/minikubeRuntime.test.ts",
+        "line": 119,
+        "column": 1
+      }
+    },
+    {
+      "name": "success",
+      "description": "Wrap a successful fixture result.",
+      "sourceLocation": {
+        "filePath": "src/runtimeFixtures.test.ts",
+        "line": 129,
+        "column": 1
+      }
+    },
+    {
+      "name": "includesLabels",
+      "description": "Match a required subset of ownership labels.",
+      "sourceLocation": {
+        "filePath": "src/runtimeFixtures.test.ts",
+        "line": 134,
+        "column": 1
+      }
+    },
+    {
+      "name": "sameResource",
+      "description": "Compare Kubernetes resources and references by immutable identity.",
+      "sourceLocation": {
+        "filePath": "src/runtimeFixtures.test.ts",
+        "line": 146,
         "column": 1
       }
     }
@@ -171,7 +826,7 @@
       "name": "createInfraAdapter",
       "sourcePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
       "symbolName": "createInfraAdapter",
-      "description": "Create the canonical Minikube runtime adapter entrypoint.\n\nThe foundation exposes the released Contracts boundary and fails lifecycle calls explicitly\nuntil the provider implementation phase supplies its external adapters.",
+      "description": "Create the canonical Minikube runtime adapter entrypoint.\n\nThe caller supplies a Minikube-specific command boundary. Standard workload projection and\nreconciliation are delegated to the published Kubernetes driver.",
       "isReadme": true
     }
   ],
@@ -188,9 +843,34 @@
         "sourcePath": "src/index.ts"
       },
       {
+        "fromPath": "src/index.ts",
+        "toPath": "src/types/minikubeRuntime.ts",
+        "sourcePath": "src/index.ts"
+      },
+      {
         "fromPath": "src/infraAdapter.test.ts",
         "toPath": "src/index.ts",
         "sourcePath": "src/infraAdapter.test.ts"
+      },
+      {
+        "fromPath": "src/infraAdapter.test.ts",
+        "toPath": "src/runtimeFixtures.test.ts",
+        "sourcePath": "src/infraAdapter.test.ts"
+      },
+      {
+        "fromPath": "src/minikubeRuntime.test.ts",
+        "toPath": "src/index.ts",
+        "sourcePath": "src/minikubeRuntime.test.ts"
+      },
+      {
+        "fromPath": "src/minikubeRuntime.test.ts",
+        "toPath": "src/runtimeFixtures.test.ts",
+        "sourcePath": "src/minikubeRuntime.test.ts"
+      },
+      {
+        "fromPath": "src/runtimeFixtures.test.ts",
+        "toPath": "src/index.ts",
+        "sourcePath": "src/runtimeFixtures.test.ts"
       },
       {
         "fromPath": "examples/basic-usage/index.ts",
@@ -201,6 +881,171 @@
         "fromPath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
         "toPath": "src/constants/infra.ts",
         "sourcePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
+        "toPath": "src/types/minikubeRuntime.ts",
+        "sourcePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
+        "toPath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
+        "sourcePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
+        "toPath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts",
+        "sourcePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
+        "toPath": "src/features/cluster-runtime/application/use-cases/getMinikubeStatusAsync.ts",
+        "sourcePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
+        "toPath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
+        "sourcePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
+        "toPath": "src/features/cluster-runtime/application/use-cases/suspendMinikubeRuntimeAsync.ts",
+        "sourcePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
+        "toPath": "src/features/cluster-runtime/application/use-cases/validateMinikubeRuntimeAsync.ts",
+        "sourcePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/utils/createKubernetesDriverRequest.ts",
+        "toPath": "src/types/minikubeRuntime.ts",
+        "sourcePath": "src/features/cluster-runtime/utils/createKubernetesDriverRequest.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/utils/createMinikubeClusterOwner.ts",
+        "toPath": "src/types/minikubeRuntime.ts",
+        "sourcePath": "src/features/cluster-runtime/utils/createMinikubeClusterOwner.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
+        "toPath": "src/types/minikubeRuntime.ts",
+        "sourcePath": "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts",
+        "toPath": "src/types/minikubeRuntime.ts",
+        "sourcePath": "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts",
+        "toPath": "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
+        "sourcePath": "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
+        "toPath": "src/types/minikubeRuntime.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
+        "toPath": "src/features/cluster-runtime/utils/createMinikubeClusterOwner.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
+        "toPath": "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts",
+        "toPath": "src/types/minikubeRuntime.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts",
+        "toPath": "src/features/cluster-runtime/utils/createKubernetesDriverRequest.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts",
+        "toPath": "src/features/cluster-runtime/utils/createMinikubeClusterOwner.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts",
+        "toPath": "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts",
+        "toPath": "src/features/cluster-runtime/application/use-cases/validateMinikubeRuntimeAsync.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/getMinikubeStatusAsync.ts",
+        "toPath": "src/types/minikubeRuntime.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/getMinikubeStatusAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/getMinikubeStatusAsync.ts",
+        "toPath": "src/features/cluster-runtime/utils/createMinikubeClusterOwner.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/getMinikubeStatusAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/getMinikubeStatusAsync.ts",
+        "toPath": "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/getMinikubeStatusAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
+        "toPath": "src/types/minikubeRuntime.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
+        "toPath": "src/features/cluster-runtime/utils/createKubernetesDriverRequest.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
+        "toPath": "src/features/cluster-runtime/utils/createMinikubeClusterOwner.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
+        "toPath": "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
+        "toPath": "src/features/cluster-runtime/application/use-cases/validateMinikubeRuntimeAsync.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/suspendMinikubeRuntimeAsync.ts",
+        "toPath": "src/types/minikubeRuntime.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/suspendMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/suspendMinikubeRuntimeAsync.ts",
+        "toPath": "src/features/cluster-runtime/utils/createMinikubeClusterOwner.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/suspendMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/suspendMinikubeRuntimeAsync.ts",
+        "toPath": "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/suspendMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/validateMinikubeRuntimeAsync.ts",
+        "toPath": "src/types/minikubeRuntime.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/validateMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromPath": "src/features/cluster-runtime/application/use-cases/validateMinikubeRuntimeAsync.ts",
+        "toPath": "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/validateMinikubeRuntimeAsync.ts"
       }
     ],
     "calls": [
@@ -235,6 +1080,120 @@
         "sourcePath": "src/infraAdapter.test.ts"
       },
       {
+        "fromSymbol": "src/minikubeRuntime.test.ts",
+        "toSymbol": "it",
+        "callExpression": "it",
+        "sourcePath": "src/minikubeRuntime.test.ts"
+      },
+      {
+        "fromSymbol": "src/minikubeRuntime.test.ts",
+        "toSymbol": "createInfraAdapter",
+        "callExpression": "createInfraAdapter",
+        "sourcePath": "src/minikubeRuntime.test.ts"
+      },
+      {
+        "fromSymbol": "src/minikubeRuntime.test.ts",
+        "toSymbol": "createContext",
+        "callExpression": "createContext",
+        "sourcePath": "src/minikubeRuntime.test.ts"
+      },
+      {
+        "fromSymbol": "src/minikubeRuntime.test.ts",
+        "toSymbol": "createDesired",
+        "callExpression": "createDesired",
+        "sourcePath": "src/minikubeRuntime.test.ts"
+      },
+      {
+        "fromSymbol": "src/minikubeRuntime.test.ts",
+        "toSymbol": "expect",
+        "callExpression": "expect",
+        "sourcePath": "src/minikubeRuntime.test.ts"
+      },
+      {
+        "fromSymbol": "src/minikubeRuntime.test.ts",
+        "toSymbol": "createDestroyRequest",
+        "callExpression": "createDestroyRequest",
+        "sourcePath": "src/minikubeRuntime.test.ts"
+      },
+      {
+        "fromSymbol": "validateAsync",
+        "toSymbol": "success",
+        "callExpression": "success",
+        "sourcePath": "src/runtimeFixtures.test.ts"
+      },
+      {
+        "fromSymbol": "inspectAsync",
+        "toSymbol": "success",
+        "callExpression": "success",
+        "sourcePath": "src/runtimeFixtures.test.ts"
+      },
+      {
+        "fromSymbol": "inspectAsync",
+        "toSymbol": "observation",
+        "callExpression": "this.observation",
+        "sourcePath": "src/runtimeFixtures.test.ts"
+      },
+      {
+        "fromSymbol": "ensureAsync",
+        "toSymbol": "success",
+        "callExpression": "success",
+        "sourcePath": "src/runtimeFixtures.test.ts"
+      },
+      {
+        "fromSymbol": "ensureAsync",
+        "toSymbol": "observation",
+        "callExpression": "this.observation",
+        "sourcePath": "src/runtimeFixtures.test.ts"
+      },
+      {
+        "fromSymbol": "waitUntilReadyAsync",
+        "toSymbol": "success",
+        "callExpression": "success",
+        "sourcePath": "src/runtimeFixtures.test.ts"
+      },
+      {
+        "fromSymbol": "waitUntilReadyAsync",
+        "toSymbol": "observation",
+        "callExpression": "this.observation",
+        "sourcePath": "src/runtimeFixtures.test.ts"
+      },
+      {
+        "fromSymbol": "loadImagesAsync",
+        "toSymbol": "success",
+        "callExpression": "success",
+        "sourcePath": "src/runtimeFixtures.test.ts"
+      },
+      {
+        "fromSymbol": "repairEndpointsAsync",
+        "toSymbol": "success",
+        "callExpression": "success",
+        "sourcePath": "src/runtimeFixtures.test.ts"
+      },
+      {
+        "fromSymbol": "suspendAsync",
+        "toSymbol": "success",
+        "callExpression": "success",
+        "sourcePath": "src/runtimeFixtures.test.ts"
+      },
+      {
+        "fromSymbol": "destroyAsync",
+        "toSymbol": "success",
+        "callExpression": "success",
+        "sourcePath": "src/runtimeFixtures.test.ts"
+      },
+      {
+        "fromSymbol": "src/runtimeFixtures.test.ts",
+        "toSymbol": "includesLabels",
+        "callExpression": "includesLabels",
+        "sourcePath": "src/runtimeFixtures.test.ts"
+      },
+      {
+        "fromSymbol": "src/runtimeFixtures.test.ts",
+        "toSymbol": "sameResource",
+        "callExpression": "sameResource",
+        "sourcePath": "src/runtimeFixtures.test.ts"
+      },
+      {
         "fromSymbol": "examples/basic-usage/index.ts",
         "toSymbol": "createInfraAdapter",
         "callExpression": "createInfraAdapter",
@@ -242,39 +1201,279 @@
       },
       {
         "fromSymbol": "validateAsync",
-        "toSymbol": "notImplementedAsync",
-        "callExpression": "notImplementedAsync",
+        "toSymbol": "validateMinikubeRuntimeAsync",
+        "callExpression": "validateMinikubeRuntimeAsync",
         "sourcePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts"
       },
       {
         "fromSymbol": "planAsync",
-        "toSymbol": "notImplementedAsync",
-        "callExpression": "notImplementedAsync",
+        "toSymbol": "planMinikubeRuntimeAsync",
+        "callExpression": "planMinikubeRuntimeAsync",
         "sourcePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts"
       },
       {
         "fromSymbol": "ensureAsync",
-        "toSymbol": "notImplementedAsync",
-        "callExpression": "notImplementedAsync",
+        "toSymbol": "ensureMinikubeRuntimeAsync",
+        "callExpression": "ensureMinikubeRuntimeAsync",
         "sourcePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts"
       },
       {
         "fromSymbol": "statusAsync",
-        "toSymbol": "notImplementedAsync",
-        "callExpression": "notImplementedAsync",
+        "toSymbol": "getMinikubeStatusAsync",
+        "callExpression": "getMinikubeStatusAsync",
         "sourcePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts"
       },
       {
         "fromSymbol": "suspendAsync",
-        "toSymbol": "notImplementedAsync",
-        "callExpression": "notImplementedAsync",
+        "toSymbol": "suspendMinikubeRuntimeAsync",
+        "callExpression": "suspendMinikubeRuntimeAsync",
         "sourcePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts"
       },
       {
         "fromSymbol": "destroyAsync",
-        "toSymbol": "notImplementedAsync",
-        "callExpression": "notImplementedAsync",
+        "toSymbol": "destroyMinikubeRuntimeAsync",
+        "callExpression": "destroyMinikubeRuntimeAsync",
         "sourcePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts"
+      },
+      {
+        "fromSymbol": "getMinikubeClusterIdentity",
+        "toSymbol": "toProfileName",
+        "callExpression": "toProfileName",
+        "sourcePath": "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts"
+      },
+      {
+        "fromSymbol": "getMinikubeClusterSpec",
+        "toSymbol": "getMinikubeClusterIdentity",
+        "callExpression": "getMinikubeClusterIdentity",
+        "sourcePath": "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts"
+      },
+      {
+        "fromSymbol": "destroyMinikubeRuntimeAsync",
+        "toSymbol": "isConfirmed",
+        "callExpression": "isConfirmed",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "destroyMinikubeRuntimeAsync",
+        "toSymbol": "unconfirmedDestroy",
+        "callExpression": "unconfirmedDestroy",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "destroyMinikubeRuntimeAsync",
+        "toSymbol": "getMinikubeClusterIdentity",
+        "callExpression": "getMinikubeClusterIdentity",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "destroyMinikubeRuntimeAsync",
+        "toSymbol": "inspectAsync",
+        "callExpression": "options.controlPlane.inspectAsync",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "destroyMinikubeRuntimeAsync",
+        "toSymbol": "createMinikubeClusterOwner",
+        "callExpression": "createMinikubeClusterOwner",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "destroyMinikubeRuntimeAsync",
+        "toSymbol": "missingDestroyAccess",
+        "callExpression": "missingDestroyAccess",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "destroyMinikubeRuntimeAsync",
+        "toSymbol": "createKubernetesDriver",
+        "callExpression": "createKubernetesDriver",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "destroyMinikubeRuntimeAsync",
+        "toSymbol": "destroyAsync",
+        "callExpression": "options.controlPlane.destroyAsync",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "ensureMinikubeRuntimeAsync",
+        "toSymbol": "validateMinikubeRuntimeAsync",
+        "callExpression": "validateMinikubeRuntimeAsync",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "ensureMinikubeRuntimeAsync",
+        "toSymbol": "getMinikubeClusterSpec",
+        "callExpression": "getMinikubeClusterSpec",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "ensureMinikubeRuntimeAsync",
+        "toSymbol": "ensureAsync",
+        "callExpression": "options.controlPlane.ensureAsync",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "ensureMinikubeRuntimeAsync",
+        "toSymbol": "waitUntilReadyAsync",
+        "callExpression": "options.controlPlane.waitUntilReadyAsync",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "ensureMinikubeRuntimeAsync",
+        "toSymbol": "missingClusterAccess",
+        "callExpression": "missingClusterAccess",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "ensureMinikubeRuntimeAsync",
+        "toSymbol": "loadImagesAsync",
+        "callExpression": "options.controlPlane.loadImagesAsync",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "ensureMinikubeRuntimeAsync",
+        "toSymbol": "createKubernetesDriver",
+        "callExpression": "createKubernetesDriver",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "ensureMinikubeRuntimeAsync",
+        "toSymbol": "createKubernetesDriverRequest",
+        "callExpression": "createKubernetesDriverRequest",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "ensureMinikubeRuntimeAsync",
+        "toSymbol": "repairEndpointsAsync",
+        "callExpression": "options.controlPlane.repairEndpointsAsync",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "ensureMinikubeRuntimeAsync",
+        "toSymbol": "createMinikubeClusterOwner",
+        "callExpression": "createMinikubeClusterOwner",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts",
+        "toSymbol": "linkRootOwner",
+        "callExpression": "linkRootOwner",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "getMinikubeStatusAsync",
+        "toSymbol": "getMinikubeClusterIdentity",
+        "callExpression": "getMinikubeClusterIdentity",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/getMinikubeStatusAsync.ts"
+      },
+      {
+        "fromSymbol": "getMinikubeStatusAsync",
+        "toSymbol": "inspectAsync",
+        "callExpression": "options.controlPlane.inspectAsync",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/getMinikubeStatusAsync.ts"
+      },
+      {
+        "fromSymbol": "getMinikubeStatusAsync",
+        "toSymbol": "createMinikubeClusterOwner",
+        "callExpression": "createMinikubeClusterOwner",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/getMinikubeStatusAsync.ts"
+      },
+      {
+        "fromSymbol": "getMinikubeStatusAsync",
+        "toSymbol": "createKubernetesDriver",
+        "callExpression": "createKubernetesDriver",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/getMinikubeStatusAsync.ts"
+      },
+      {
+        "fromSymbol": "planMinikubeRuntimeAsync",
+        "toSymbol": "validateMinikubeRuntimeAsync",
+        "callExpression": "validateMinikubeRuntimeAsync",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "planMinikubeRuntimeAsync",
+        "toSymbol": "getMinikubeClusterSpec",
+        "callExpression": "getMinikubeClusterSpec",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "planMinikubeRuntimeAsync",
+        "toSymbol": "inspectAsync",
+        "callExpression": "options.controlPlane.inspectAsync",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "planMinikubeRuntimeAsync",
+        "toSymbol": "createMinikubeClusterOwner",
+        "callExpression": "createMinikubeClusterOwner",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "planMinikubeRuntimeAsync",
+        "toSymbol": "createClusterPlan",
+        "callExpression": "createClusterPlan",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "planMinikubeRuntimeAsync",
+        "toSymbol": "createKubernetesDriverRequest",
+        "callExpression": "createKubernetesDriverRequest",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "planMinikubeRuntimeAsync",
+        "toSymbol": "createPreClusterPlanAsync",
+        "callExpression": "createPreClusterPlanAsync",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "planMinikubeRuntimeAsync",
+        "toSymbol": "createKubernetesDriver",
+        "callExpression": "createKubernetesDriver",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
+        "toSymbol": "linkRootAction",
+        "callExpression": "linkRootAction",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "createPreClusterPlanAsync",
+        "toSymbol": "projectKubernetesResourcesAsync",
+        "callExpression": "projectKubernetesResourcesAsync",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "suspendMinikubeRuntimeAsync",
+        "toSymbol": "getMinikubeClusterIdentity",
+        "callExpression": "getMinikubeClusterIdentity",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/suspendMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "suspendMinikubeRuntimeAsync",
+        "toSymbol": "suspendAsync",
+        "callExpression": "options.controlPlane.suspendAsync",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/suspendMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "suspendMinikubeRuntimeAsync",
+        "toSymbol": "createMinikubeClusterOwner",
+        "callExpression": "createMinikubeClusterOwner",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/suspendMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "validateMinikubeRuntimeAsync",
+        "toSymbol": "getMinikubeClusterSpec",
+        "callExpression": "getMinikubeClusterSpec",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/validateMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "validateMinikubeRuntimeAsync",
+        "toSymbol": "validateAsync",
+        "callExpression": "options.controlPlane.validateAsync",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/validateMinikubeRuntimeAsync.ts"
       }
     ],
     "typeReferences": [
@@ -282,6 +1481,56 @@
         "fromSymbol": "createInfraAdapter",
         "toType": "InfraRuntimeAdapter",
         "sourcePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts"
+      },
+      {
+        "fromSymbol": "createInfraAdapter",
+        "toType": "MinikubeAdapterOptions",
+        "sourcePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts"
+      },
+      {
+        "fromSymbol": "MinikubeAdapterOptions",
+        "toType": "MinikubeControlPlane",
+        "sourcePath": "src/types/minikubeRuntime.ts"
+      },
+      {
+        "fromSymbol": "MinikubeClusterObservation",
+        "toType": "KubernetesApi",
+        "sourcePath": "src/types/minikubeRuntime.ts"
+      },
+      {
+        "fromSymbol": "MinikubeControlPlane",
+        "toType": "AbortSignal",
+        "sourcePath": "src/types/minikubeRuntime.ts"
+      },
+      {
+        "fromSymbol": "MinikubeControlPlane",
+        "toType": "InfraResult",
+        "sourcePath": "src/types/minikubeRuntime.ts"
+      },
+      {
+        "fromSymbol": "MinikubeControlPlane",
+        "toType": "InfraWorkloadSpec",
+        "sourcePath": "src/types/minikubeRuntime.ts"
+      },
+      {
+        "fromSymbol": "MinikubeControlPlane",
+        "toType": "MinikubeClusterIdentity",
+        "sourcePath": "src/types/minikubeRuntime.ts"
+      },
+      {
+        "fromSymbol": "MinikubeControlPlane",
+        "toType": "MinikubeClusterObservation",
+        "sourcePath": "src/types/minikubeRuntime.ts"
+      },
+      {
+        "fromSymbol": "MinikubeControlPlane",
+        "toType": "MinikubeClusterSpec",
+        "sourcePath": "src/types/minikubeRuntime.ts"
+      },
+      {
+        "fromSymbol": "MinikubeControlPlane",
+        "toType": "MinikubeEndpointOutput",
+        "sourcePath": "src/types/minikubeRuntime.ts"
       }
     ],
     "componentComposition": []

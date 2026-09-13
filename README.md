@@ -3,7 +3,7 @@
 
 # @ankhorage/minikube
 
-![license: MIT](././paradox/badges/license.svg) ![npm: v0.0.0](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![docs: paradox](././paradox/badges/docs.svg)
+![license: MIT](././paradox/badges/license.svg) ![npm: v0.1.0](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![docs: paradox](././paradox/badges/docs.svg)
 
 Minikube runtime adapter for provider-neutral Ankhorage infrastructure.
 
@@ -24,15 +24,16 @@ Minikube runtime adapter for provider-neutral Ankhorage infrastructure.
 <summary>createInfraAdapter</summary>
 
 ```ts
-createInfraAdapter() => InfraRuntimeAdapter<"minikube">
+createInfraAdapter(options: MinikubeAdapterOptions) => InfraRuntimeAdapter<"minikube">
 ```
 
 Create the canonical Minikube runtime adapter entrypoint.
 
-The foundation exposes the released Contracts boundary and fails lifecycle calls explicitly
-until the provider implementation phase supplies its external adapters.
+The caller supplies a Minikube-specific command boundary. Standard workload projection and
+reconciliation are delegated to the published Kubernetes driver.
 
 Module: `src/features/cluster-runtime/composition/createInfraAdapter.ts`
-Source: `src/features/cluster-runtime/composition/createInfraAdapter.ts:13:1`
+Source: `src/features/cluster-runtime/composition/createInfraAdapter.ts:20:1`
+Related symbols: `MinikubeAdapterOptions`
 
 </details>
