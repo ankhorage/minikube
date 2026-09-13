@@ -1,5 +1,11 @@
 # @ankhorage/minikube
 
+## 0.3.0
+
+### Minor Changes
+
+- 62c05ab: Add the concrete stateless Minikube CLI lifecycle with Kubernetes API delegation, image loading, and local service endpoint discovery.
+
 ## 0.2.1
 
 ### Patch Changes
