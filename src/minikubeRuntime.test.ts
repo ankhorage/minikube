@@ -27,6 +27,7 @@ it('plans and converges the complete local runtime lifecycle', async () => {
 
   expect((await adapter.suspendAsync(context)).ok).toBe(true);
   expect(controlPlane.state).toBe('stopped');
+  expect((await adapter.planAsync(context, desired)).ok).toBe(false);
   expect((await adapter.ensureAsync(context, desired)).ok).toBe(true);
   expect((await adapter.destroyAsync(context, createDestroyRequest())).ok).toBe(true);
   expect(controlPlane.state).toBe('absent');
