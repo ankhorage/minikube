@@ -2,6 +2,7 @@ import type { InfraRuntimeAdapter } from '@ankhorage/contracts/infra';
 
 import { infraAdapterDescriptor } from '../../../constants/infra';
 import type { MinikubeAdapterOptions } from '../../../types/minikubeRuntime';
+import { createMinikubeCliControlPlane } from '../adapters/createMinikubeCliControlPlane';
 import { destroyMinikubeRuntimeAsync } from '../application/use-cases/destroyMinikubeRuntimeAsync';
 import { ensureMinikubeRuntimeAsync } from '../application/use-cases/ensureMinikubeRuntimeAsync';
 import { getMinikubeStatusAsync } from '../application/use-cases/getMinikubeStatusAsync';
@@ -18,15 +19,17 @@ import { validateMinikubeRuntimeAsync } from '../application/use-cases/validateM
  * @readme
  */
 export function createInfraAdapter(
-  options: MinikubeAdapterOptions,
+  options?: MinikubeAdapterOptions,
 ): InfraRuntimeAdapter<'minikube'> {
+  const resolved = options ?? { controlPlane: createMinikubeCliControlPlane() };
   return {
     descriptor: infraAdapterDescriptor,
-    validateAsync: (context, desired) => validateMinikubeRuntimeAsync(options, context, desired),
-    planAsync: (context, desired) => planMinikubeRuntimeAsync(options, context, desired),
-    ensureAsync: (context, desired) => ensureMinikubeRuntimeAsync(options, context, desired),
-    statusAsync: (context) => getMinikubeStatusAsync(options, context),
-    suspendAsync: (context) => suspendMinikubeRuntimeAsync(options, context),
-    destroyAsync: (context, request) => destroyMinikubeRuntimeAsync(options, context, request),
+    validateAsync: (context, desired) => validateMinikubeRuntimeAsync(resolved, context, desired),
+    planAsync: (context, desired) => planMinikubeRuntimeAsync(resolved, context, desired),
+    ensureAsync: (context, desired) => ensureMinikubeRuntimeAsync(resolved, context, desired),
+    statusAsync: (context, desired) => getMinikubeStatusAsync(resolved, context, desired),
+    suspendAsync: (context, desired) => suspendMinikubeRuntimeAsync(resolved, context, desired),
+    destroyAsync: (context, desired, request) =>
+      destroyMinikubeRuntimeAsync(resolved, context, desired, request),
   };
 }

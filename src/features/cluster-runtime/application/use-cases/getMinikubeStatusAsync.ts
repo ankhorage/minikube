@@ -5,7 +5,11 @@ import type {
 } from '@ankhorage/contracts/infra';
 import { createKubernetesDriver } from '@ankhorage/kubernetes';
 
-import type { MinikubeAdapterOptions } from '../../../../types/minikubeRuntime';
+import type {
+  MinikubeAdapterOptions,
+  MinikubeDesiredState,
+} from '../../../../types/minikubeRuntime';
+import { createKubernetesDriverRequest } from '../../utils/createKubernetesDriverRequest';
 import { createMinikubeClusterOwner } from '../../utils/createMinikubeClusterOwner';
 import { getMinikubeClusterIdentity } from '../../utils/getMinikubeClusterIdentity';
 
@@ -13,6 +17,7 @@ import { getMinikubeClusterIdentity } from '../../utils/getMinikubeClusterIdenti
 export async function getMinikubeStatusAsync(
   options: MinikubeAdapterOptions,
   context: InfraExecutionContext,
+  desired: MinikubeDesiredState,
 ): Promise<InfraResult<readonly InfraResourceStatus[]>> {
   const identity = getMinikubeClusterIdentity(context);
   if (!identity.ok) return identity;
@@ -27,12 +32,9 @@ export async function getMinikubeStatusAsync(
   if (observed.value.api === undefined) {
     return { ok: true, value: [clusterStatus], diagnostics: [] };
   }
-  const workloads = await createKubernetesDriver({ api: observed.value.api }).statusAsync({
-    context,
-    ownerAdapter: 'minikube',
-    workloads: [],
-    availableOutputs: [],
-  });
+  const workloads = await createKubernetesDriver({ api: observed.value.api }).statusAsync(
+    createKubernetesDriverRequest(context, desired),
+  );
   if (!workloads.ok) return workloads;
   return { ok: true, value: [clusterStatus, ...workloads.value], diagnostics: [] };
 }

@@ -6,7 +6,10 @@ import type {
 } from '@ankhorage/contracts/infra';
 import { createKubernetesDriver } from '@ankhorage/kubernetes';
 
-import type { MinikubeAdapterOptions } from '../../../../types/minikubeRuntime';
+import type {
+  MinikubeAdapterOptions,
+  MinikubeDesiredState,
+} from '../../../../types/minikubeRuntime';
 import { createMinikubeClusterOwner } from '../../utils/createMinikubeClusterOwner';
 import { getMinikubeClusterIdentity } from '../../utils/getMinikubeClusterIdentity';
 
@@ -14,6 +17,7 @@ import { getMinikubeClusterIdentity } from '../../utils/getMinikubeClusterIdenti
 export async function destroyMinikubeRuntimeAsync(
   options: MinikubeAdapterOptions,
   context: InfraExecutionContext,
+  _desired: MinikubeDesiredState,
   request: InfraDestroyRequest,
 ): Promise<InfraResult<InfraReconcileResult>> {
   if (!isConfirmed(context, request)) return unconfirmedDestroy();
