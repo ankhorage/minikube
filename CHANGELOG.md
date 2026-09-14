@@ -1,5 +1,11 @@
 # @ankhorage/minikube
 
+## 0.4.0
+
+### Minor Changes
+
+- 672f709: Own fixed local workload listeners through the Minikube profile lifecycle.
+
 ## 0.3.0
 
 ### Minor Changes
