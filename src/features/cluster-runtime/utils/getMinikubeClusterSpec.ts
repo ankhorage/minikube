@@ -37,6 +37,15 @@ export function getMinikubeClusterSpec(
       ...(desired.selection.memoryMiB === undefined
         ? {}
         : { memoryMiB: desired.selection.memoryMiB }),
+      publishedPorts: [
+        ...new Set(
+          desired.workloads.flatMap((workload) =>
+            (workload.ports ?? []).flatMap(({ publishedPort }) =>
+              publishedPort === undefined ? [] : [publishedPort],
+            ),
+          ),
+        ),
+      ].sort((left, right) => left - right),
     },
     diagnostics: [],
   };

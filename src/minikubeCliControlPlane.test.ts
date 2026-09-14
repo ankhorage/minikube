@@ -1,3 +1,4 @@
+import type { InfraWorkloadSpec } from '@ankhorage/contracts/infra';
 import { expect, it } from 'bun:test';
 
 import { createSubprocessMinikubeCommandRunner } from './features/cluster-runtime/adapters/createSubprocessMinikubeCommandRunner';
@@ -31,26 +32,29 @@ it('operates one exact Minikube profile through the stateless CLI boundary', asy
     runner.calls.some(
       ({ arguments: arguments_ }) =>
         arguments_.join(' ') ===
-        'start -p sample-local --driver=docker --interactive=false --addons=ingress --cpus=3 --memory=4096mb',
+        'start -p sample-local --driver=docker --interactive=false --addons=ingress --ports=49152:49152 --cpus=3 --memory=4096mb',
     ),
   ).toBe(true);
 
   expect((await controlPlane.waitUntilReadyAsync(spec)).ok).toBe(true);
   expect((await controlPlane.loadImagesAsync(spec, ['registry.example/api:1'])).ok).toBe(true);
-  const endpoints = await controlPlane.repairEndpointsAsync(spec, [
-    {
-      id: 'api',
-      artifact: { kind: 'image', image: 'registry.example/api:1' },
-      ports: [{ name: 'http', port: 8080 }],
-      exposure: 'public',
-    },
-  ]);
+  const endpoints = await controlPlane.repairEndpointsAsync(spec, [createPublishedWorkload()]);
   expect(endpoints.ok && endpoints.value[0]?.value).toBe('http://127.0.0.1:49152');
 
   expect((await controlPlane.suspendAsync(spec)).ok).toBe(true);
   expect(runner.state).toBe('stopped');
   expect((await controlPlane.destroyAsync(spec)).ok).toBe(true);
   expect(runner.state).toBe('absent');
+});
+
+it('prefers the declared public origin when it addresses the fixed listener', async () => {
+  const endpoints = await createMinikubeCliControlPlane().repairEndpointsAsync(
+    createSpec(),
+    [createPublishedWorkload()],
+    'http://192.0.2.10:49152',
+  );
+
+  expect(endpoints.ok && endpoints.value[0]?.value).toBe('http://192.0.2.10:49152');
 });
 
 it('reports profile drift and sanitizes failed provider output', async () => {
@@ -60,6 +64,11 @@ it('reports profile drift and sanitizes failed provider output', async () => {
   const controlPlane = createMinikubeCliControlPlane({ runner });
   const observed = await controlPlane.inspectAsync(createSpec());
   expect(observed.ok && observed.value.configurationMatches).toBe(false);
+  const convergence = await controlPlane.ensureAsync(createSpec());
+  expect(
+    !convergence.ok &&
+      convergence.diagnostics.some(({ code }) => code === 'minikube-profile-configuration-drift'),
+  ).toBe(true);
 
   runner.failNext = true;
   const failed = await controlPlane.validateAsync(createSpec());
@@ -86,6 +95,17 @@ function createSpec(): MinikubeClusterSpec {
     driver: 'docker',
     cpus: 3,
     memoryMiB: 4096,
+    publishedPorts: [49_152],
+  };
+}
+
+/*** Create one public workload with an exact host listener. */
+function createPublishedWorkload(): InfraWorkloadSpec {
+  return {
+    id: 'api',
+    artifact: { kind: 'image', image: 'registry.example/api:1' },
+    ports: [{ name: 'http', port: 8080, publishedPort: 49_152 }],
+    exposure: 'public',
   };
 }
 
@@ -94,6 +114,7 @@ class FakeMinikubeCommandRunner implements MinikubeCommandRunner {
   state: 'absent' | 'ready' | 'stopped' = 'absent';
   driver = 'docker';
   failNext = false;
+  publishedPorts: readonly number[] = [];
 
   runAsync(request: MinikubeCommandRequest): Promise<MinikubeCommandResult> {
     this.calls.push(request);
@@ -112,6 +133,10 @@ class FakeMinikubeCommandRunner implements MinikubeCommandRunner {
     }
     if (command === 'start') {
       this.state = 'ready';
+      this.publishedPorts = request.arguments.flatMap((argument) => {
+        const match = /^--ports=(\d+):\d+$/u.exec(argument);
+        return match?.[1] === undefined ? [] : [Number(match[1])];
+      });
       return result(0);
     }
     if (command === 'service' && subcommand === 'list') {
@@ -140,7 +165,12 @@ class FakeMinikubeCommandRunner implements MinikubeCommandRunner {
           : [
               {
                 Name: 'sample-local',
-                Config: { Driver: this.driver, CPUs: 3, Memory: 4096 },
+                Config: {
+                  Driver: this.driver,
+                  CPUs: 3,
+                  Memory: 4096,
+                  ExposedPorts: this.publishedPorts.map((port) => `${port}:${port}`),
+                },
               },
             ],
     });

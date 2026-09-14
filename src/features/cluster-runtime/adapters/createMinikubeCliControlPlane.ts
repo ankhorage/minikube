@@ -10,7 +10,7 @@ import type {
 import { createSubprocessMinikubeCommandRunner } from './createSubprocessMinikubeCommandRunner';
 import { inspectMinikubeAsync } from './inspectMinikubeAsync';
 import { delayMinikubePollAsync, runCheckedMinikubeCommandAsync } from './minikubeCliProcess';
-import { readMinikubeEndpointsAsync } from './readMinikubeEndpointsAsync';
+import { readMinikubeEndpoints } from './readMinikubeEndpoints';
 
 interface MinikubeCliContext {
   readonly runner: MinikubeCommandRunner;
@@ -46,8 +46,8 @@ function createControlPlane(context: MinikubeCliContext): MinikubeControlPlane {
     waitUntilReadyAsync: (identity, signal) => waitForMinikubeCliAsync(context, identity, signal),
     loadImagesAsync: (identity, images, signal) =>
       loadMinikubeImagesAsync(context, identity, images, signal),
-    repairEndpointsAsync: (identity, workloads, signal) =>
-      readMinikubeEndpointsAsync(context.runner, context.executable, identity, workloads, signal),
+    repairEndpointsAsync: (identity, workloads, publicBaseUrl) =>
+      Promise.resolve(readMinikubeEndpoints(identity, workloads, publicBaseUrl)),
     suspendAsync: (identity, signal) => suspendMinikubeCliAsync(context, identity, signal),
     destroyAsync: (identity, signal) => destroyMinikubeCliAsync(context, identity, signal),
   };
@@ -89,7 +89,9 @@ async function ensureMinikubeCliAsync(
     createStartArguments(spec),
     signal,
   );
-  return started.ok ? inspectMinikubeAsync(context, spec, signal) : started;
+  if (!started.ok) return started;
+  const updated = await inspectMinikubeAsync(context, spec, signal);
+  return updated.ok && updated.value.configurationMatches ? updated : profileConfigurationDrift();
 }
 
 async function waitForMinikubeCliAsync(
@@ -174,9 +176,25 @@ function createStartArguments(spec: MinikubeClusterSpec): readonly string[] {
     `--driver=${spec.driver}`,
     '--interactive=false',
     '--addons=ingress',
+    ...spec.publishedPorts.map((port) => `--ports=${port}:${port}`),
     ...(spec.cpus === undefined ? [] : [`--cpus=${spec.cpus}`]),
     ...(spec.memoryMiB === undefined ? [] : [`--memory=${spec.memoryMiB}mb`]),
   ];
+}
+
+/*** Refuse to report convergence when an existing profile cannot adopt required port mappings. */
+function profileConfigurationDrift(): InfraResult<never> {
+  return {
+    ok: false,
+    diagnostics: [
+      {
+        severity: 'error',
+        code: 'minikube-profile-configuration-drift',
+        message:
+          'The existing Minikube profile does not expose the desired workload ports; destroy and recreate the owned profile explicitly.',
+      },
+    ],
+  };
 }
 
 function readinessTimeout(): InfraResult<never> {

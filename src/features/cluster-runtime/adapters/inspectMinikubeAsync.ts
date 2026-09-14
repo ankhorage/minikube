@@ -17,6 +17,7 @@ interface MinikubeProfile {
   readonly driver?: string;
   readonly cpus?: number;
   readonly memoryMiB?: number;
+  readonly publishedPorts: readonly number[];
 }
 
 interface InspectMinikubeOptions {
@@ -96,7 +97,8 @@ function profileMatches(
   return (
     profile.driver === identity.driver &&
     (identity.cpus === undefined || profile.cpus === identity.cpus) &&
-    (identity.memoryMiB === undefined || profile.memoryMiB === identity.memoryMiB)
+    (identity.memoryMiB === undefined || profile.memoryMiB === identity.memoryMiB) &&
+    arraysEqual(profile.publishedPorts, identity.publishedPorts)
   );
 }
 
@@ -132,7 +134,26 @@ function readProfileConfig(
     ...(typeof config?.Driver === 'string' ? { driver: config.Driver } : {}),
     ...(typeof config?.CPUs === 'number' ? { cpus: config.CPUs } : {}),
     ...(typeof config?.Memory === 'number' ? { memoryMiB: config.Memory } : {}),
+    publishedPorts: readPublishedPorts(config?.ExposedPorts),
   };
+}
+
+/*** Parse Minikube's host-to-profile port mappings into sorted exact host listeners. */
+function readPublishedPorts(value: unknown): readonly number[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .flatMap((entry) => {
+      if (typeof entry !== 'string') return [];
+      const [, hostPortText] = entry.split(':').reverse();
+      const hostPort = Number(hostPortText);
+      return Number.isInteger(hostPort) && hostPort > 0 && hostPort <= 65_535 ? [hostPort] : [];
+    })
+    .sort((left, right) => left - right);
+}
+
+/*** Compare two already sorted numeric port sets exactly. */
+function arraysEqual(left: readonly number[], right: readonly number[]): boolean {
+  return left.length === right.length && left.join(',') === right.join(',');
 }
 
 /** Map Minikube component status into the provider-neutral lifecycle state. */

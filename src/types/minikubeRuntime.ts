@@ -49,6 +49,8 @@ export interface MinikubeClusterSpec extends MinikubeClusterIdentity {
   readonly driver: 'docker' | 'podman';
   readonly cpus?: number;
   readonly memoryMiB?: number;
+  /** Host listeners bridged into the profile container for portable published workload ports. */
+  readonly publishedPorts: readonly number[];
 }
 
 export interface MinikubeClusterObservation {
@@ -83,6 +85,7 @@ export interface MinikubeControlPlane {
   repairEndpointsAsync(
     identity: MinikubeClusterIdentity,
     workloads: readonly InfraWorkloadSpec[],
+    publicBaseUrl?: string,
     signal?: AbortSignal,
   ): Promise<InfraResult<readonly MinikubeEndpointOutput[]>>;
   suspendAsync(identity: MinikubeClusterIdentity, signal?: AbortSignal): Promise<InfraResult<null>>;
