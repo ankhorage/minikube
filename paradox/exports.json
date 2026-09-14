@@ -217,7 +217,7 @@
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
       "filePath": "src/types/minikubeRuntime.ts",
-      "line": 54,
+      "line": 56,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -310,6 +310,13 @@
         "name": "projectId",
         "kind": "property",
         "type": "string",
+        "required": true,
+        "description": null
+      },
+      {
+        "name": "publishedPorts",
+        "kind": "property",
+        "type": "readonly number[]",
         "required": true,
         "description": null
       },
@@ -438,7 +445,7 @@
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
       "filePath": "src/types/minikubeRuntime.ts",
-      "line": 64,
+      "line": 66,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -481,7 +488,7 @@
       {
         "name": "repairEndpointsAsync",
         "kind": "method",
-        "type": "(identity: MinikubeClusterIdentity, workloads: readonly InfraWorkloadSpec[], signal?: AbortSignal) => Promise<InfraResult<readonly MinikubeEndpointOutput[]>>",
+        "type": "(identity: MinikubeClusterIdentity, workloads: readonly InfraWorkloadSpec[], publicBaseUrl?: string, signal?: AbortSignal) => Promise<InfraResult<readonly MinikubeEndpointOutput[]>>",
         "required": true,
         "description": null
       },
@@ -518,7 +525,7 @@
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
       "filePath": "src/types/minikubeRuntime.ts",
-      "line": 92,
+      "line": 95,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],
@@ -536,7 +543,7 @@
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
       "filePath": "src/types/minikubeRuntime.ts",
-      "line": 61,
+      "line": 63,
       "column": 1
     },
     "exportPaths": ["src/index.ts"],

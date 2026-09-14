@@ -82,7 +82,7 @@ Source: `src/types/minikubeRuntime.ts:41:1`
 
 Kind: `type`
 Module: `src/types/minikubeRuntime.ts`
-Source: `src/types/minikubeRuntime.ts:54:1`
+Source: `src/types/minikubeRuntime.ts:56:1`
 
 ### Members
 
@@ -101,15 +101,16 @@ Source: `src/types/minikubeRuntime.ts:47:1`
 
 ### Members
 
-| Name        | Kind     | Type                                                                                                                                                    | Required | Description |
-| ----------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
-| cpus        | property | `number \| undefined`                                                                                                                                   | no       |             |
-| driver      | property | `"docker" \| "podman"`                                                                                                                                  | yes      |             |
-| environment | property | `"local"`                                                                                                                                               | yes      |             |
-| memoryMiB   | property | `number \| undefined`                                                                                                                                   | no       |             |
-| profile     | property | `string`                                                                                                                                                | yes      |             |
-| projectId   | property | `string`                                                                                                                                                | yes      |             |
-| target      | property | `{ readonly id: string; readonly os: "linux" \| "darwin" \| "windows"; readonly architecture: "amd64" \| "arm64"; } & { readonly kind: "local-host"; }` | yes      |             |
+| Name           | Kind     | Type                                                                                                                                                    | Required | Description |
+| -------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
+| cpus           | property | `number \| undefined`                                                                                                                                   | no       |             |
+| driver         | property | `"docker" \| "podman"`                                                                                                                                  | yes      |             |
+| environment    | property | `"local"`                                                                                                                                               | yes      |             |
+| memoryMiB      | property | `number \| undefined`                                                                                                                                   | no       |             |
+| profile        | property | `string`                                                                                                                                                | yes      |             |
+| projectId      | property | `string`                                                                                                                                                | yes      |             |
+| publishedPorts | property | `readonly number[]`                                                                                                                                     | yes      |             |
+| target         | property | `{ readonly id: string; readonly os: "linux" \| "darwin" \| "windows"; readonly architecture: "amd64" \| "arm64"; } & { readonly kind: "local-host"; }` | yes      |             |
 
 ## MinikubeCommandRequest
 
@@ -155,29 +156,29 @@ Source: `src/types/minikubeRuntime.ts:28:1`
 
 Kind: `type`
 Module: `src/types/minikubeRuntime.ts`
-Source: `src/types/minikubeRuntime.ts:64:1`
+Source: `src/types/minikubeRuntime.ts:66:1`
 
 ### Members
 
-| Name                 | Kind   | Type                                                                                                                                                            | Required | Description |
-| -------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
-| destroyAsync         | method | `(identity: MinikubeClusterIdentity, signal?: AbortSignal) => Promise<InfraResult<null>>`                                                                       | yes      |             |
-| ensureAsync          | method | `(spec: MinikubeClusterSpec, signal?: AbortSignal) => Promise<InfraResult<MinikubeClusterObservation>>`                                                         | yes      |             |
-| inspectAsync         | method | `(identity: MinikubeClusterIdentity, signal?: AbortSignal) => Promise<InfraResult<MinikubeClusterObservation>>`                                                 | yes      |             |
-| loadImagesAsync      | method | `(identity: MinikubeClusterIdentity, images: readonly string[], signal?: AbortSignal) => Promise<InfraResult<null>>`                                            | yes      |             |
-| repairEndpointsAsync | method | `(identity: MinikubeClusterIdentity, workloads: readonly InfraWorkloadSpec[], signal?: AbortSignal) => Promise<InfraResult<readonly MinikubeEndpointOutput[]>>` | yes      |             |
-| suspendAsync         | method | `(identity: MinikubeClusterIdentity, signal?: AbortSignal) => Promise<InfraResult<null>>`                                                                       | yes      |             |
-| validateAsync        | method | `(spec: MinikubeClusterSpec, signal?: AbortSignal) => Promise<InfraResult<null>>`                                                                               | yes      |             |
-| waitUntilReadyAsync  | method | `(identity: MinikubeClusterIdentity, signal?: AbortSignal) => Promise<InfraResult<MinikubeClusterObservation>>`                                                 | yes      |             |
+| Name                 | Kind   | Type                                                                                                                                                                                    | Required | Description |
+| -------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
+| destroyAsync         | method | `(identity: MinikubeClusterIdentity, signal?: AbortSignal) => Promise<InfraResult<null>>`                                                                                               | yes      |             |
+| ensureAsync          | method | `(spec: MinikubeClusterSpec, signal?: AbortSignal) => Promise<InfraResult<MinikubeClusterObservation>>`                                                                                 | yes      |             |
+| inspectAsync         | method | `(identity: MinikubeClusterIdentity, signal?: AbortSignal) => Promise<InfraResult<MinikubeClusterObservation>>`                                                                         | yes      |             |
+| loadImagesAsync      | method | `(identity: MinikubeClusterIdentity, images: readonly string[], signal?: AbortSignal) => Promise<InfraResult<null>>`                                                                    | yes      |             |
+| repairEndpointsAsync | method | `(identity: MinikubeClusterIdentity, workloads: readonly InfraWorkloadSpec[], publicBaseUrl?: string, signal?: AbortSignal) => Promise<InfraResult<readonly MinikubeEndpointOutput[]>>` | yes      |             |
+| suspendAsync         | method | `(identity: MinikubeClusterIdentity, signal?: AbortSignal) => Promise<InfraResult<null>>`                                                                                               | yes      |             |
+| validateAsync        | method | `(spec: MinikubeClusterSpec, signal?: AbortSignal) => Promise<InfraResult<null>>`                                                                                                       | yes      |             |
+| waitUntilReadyAsync  | method | `(identity: MinikubeClusterIdentity, signal?: AbortSignal) => Promise<InfraResult<MinikubeClusterObservation>>`                                                                         | yes      |             |
 
 ## MinikubeDesiredState
 
 Kind: `unknown`
 Module: `src/types/minikubeRuntime.ts`
-Source: `src/types/minikubeRuntime.ts:92:1`
+Source: `src/types/minikubeRuntime.ts:95:1`
 
 ## MinikubeEndpointOutput
 
 Kind: `unknown`
 Module: `src/types/minikubeRuntime.ts`
-Source: `src/types/minikubeRuntime.ts:61:1`
+Source: `src/types/minikubeRuntime.ts:63:1`

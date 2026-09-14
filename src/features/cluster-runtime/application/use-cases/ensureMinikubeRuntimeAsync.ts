@@ -42,6 +42,7 @@ export async function ensureMinikubeRuntimeAsync(
   const endpoints = await options.controlPlane.repairEndpointsAsync(
     spec.value,
     desired.workloads.filter(({ exposure }) => exposure === 'public'),
+    context.desired.networking?.publicBaseUrl,
     context.signal,
   );
   if (!endpoints.ok) return endpoints;
