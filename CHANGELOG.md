@@ -1,5 +1,11 @@
 # @ankhorage/minikube
 
+## 0.4.1
+
+### Patch Changes
+
+- 19cf5d2: Require the Kubernetes driver release that gates dependent workloads on dependency readiness during reconciliation.
+
 ## 0.4.0
 
 ### Minor Changes
