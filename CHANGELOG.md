@@ -1,5 +1,11 @@
 # @ankhorage/minikube
 
+## 0.4.2
+
+### Patch Changes
+
+- d965238: Consume Contracts 19.4 and Kubernetes 0.8 so Minikube supports portable image-seeded persistent volumes.
+
 ## 0.4.1
 
 ### Patch Changes
