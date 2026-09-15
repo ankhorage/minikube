@@ -6,7 +6,7 @@
       "name": "@ankhorage/minikube",
       "dependencies": {
         "@ankhorage/contracts": "^19.1.0",
-        "@ankhorage/kubernetes": "^0.7.0",
+        "@ankhorage/kubernetes": "^0.7.2",
       },
       "devDependencies": {
         "@ankhorage/devtools": "^1.14.6",
@@ -24,7 +24,7 @@
 
     "@ankhorage/devtools": ["@ankhorage/devtools@1.14.6", "", { "dependencies": { "@ankhorage/utility": "^0.5.1", "@changesets/cli": "^3.0.2", "@eslint/compat": "^2.1.1", "@eslint/js": "^10.0.1", "eslint": "^10.10.0", "eslint-config-prettier": "^10.1.8", "eslint-plugin-import": "^2.32.0", "eslint-plugin-prettier": "^5.5.6", "eslint-plugin-react": "^7.37.5", "eslint-plugin-react-hooks": "^7.0.0", "eslint-plugin-react-native": "^5.0.0", "eslint-plugin-security": "^4.0.1", "eslint-plugin-simple-import-sort": "^14.0.0", "eslint-plugin-unused-imports": "^4.4.1", "knip": "^6.34.0", "prettier": "^3.9.6", "typescript-eslint": "^8.69.0" }, "bin": { "ankhorage-changeset": "dist/cli/bin/changeset.js", "ankhorage-eslint": "dist/cli/bin/eslint.js", "ankhorage-knip": "dist/cli/bin/knip.js", "ankhorage-prettier": "dist/cli/bin/prettier.js" } }, "sha512-O3g8Ep2ccSY3c972dbrnJn6mCLUQCZdA8pCggw/ja+MzlbNRVc+KrpyZSNMxgHOaoVTkG32lpVmJUPX4uULCBg=="],
 
-    "@ankhorage/kubernetes": ["@ankhorage/kubernetes@0.7.0", "", { "dependencies": { "@ankhorage/contracts": "^19.1.0" } }, "sha512-9oXkRcpdue3oRxF2LTOK5IGca21c+UGwWUovyVQdXfmChGQV2Cfiy6yaGGr7kItuEPhs8KRJaWMoE8XnvONAwQ=="],
+    "@ankhorage/kubernetes": ["@ankhorage/kubernetes@0.7.2", "", { "dependencies": { "@ankhorage/contracts": "^19.1.0" } }, "sha512-JZfDZceJMpqig+jtf/WZnaWQco2yHi/l+GeI38/wNFvFYv/Hh2WLw9wrLbpk5VSxtS2RSSXgYOJpLLVmTTIbTA=="],
 
     "@ankhorage/paradox": ["@ankhorage/paradox@0.1.26", "", { "dependencies": { "ts-morph": "^28.0.0" }, "bin": { "paradox": "dist/cli/standalone.js" } }, "sha512-6m+GVcA58LOgiZp9PZZERvd2vL9vus+Ab1fM+ZehS+b6MuSH/RAUvGZ5ifOpgVuCczLAMzi5mxKNrRlShm0zHw=="],
 
