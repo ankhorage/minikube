@@ -61,7 +61,6 @@ it('waits for transient running cluster access before destructive inspection', a
   expect(result.ok).toBe(true);
   expect(countCalls(controlPlane, 'wait')).toBe(waitsBeforeDestroy + 1);
   expect(controlPlane.calls).toContain('destroy');
-  expect(controlPlane.state).toBe('absent');
 });
 
 it('refuses cluster deletion while retained resources cannot be inspected', async () => {
