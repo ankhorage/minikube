@@ -12,6 +12,8 @@ import { inspectMinikubeAsync } from './inspectMinikubeAsync';
 import { delayMinikubePollAsync, runCheckedMinikubeCommandAsync } from './minikubeCliProcess';
 import { readMinikubeEndpoints } from './readMinikubeEndpoints';
 
+const IMAGE_LOAD_ATTEMPTS = 3;
+
 interface MinikubeCliContext {
   readonly runner: MinikubeCommandRunner;
   readonly executable: string;
@@ -119,15 +121,30 @@ async function loadMinikubeImagesAsync(
   signal?: AbortSignal,
 ): Promise<InfraResult<null>> {
   for (const image of images) {
-    const loaded = await runCheckedMinikubeCommandAsync(
-      context.runner,
-      context.executable,
-      ['image', 'load', image, '-p', identity.profile],
-      signal,
-    );
+    const loaded = await loadMinikubeImageAsync(context, identity, image, 1, signal);
     if (!loaded.ok) return loaded;
   }
   return { ok: true, value: null, diagnostics: [] };
+}
+
+/*** Load one image with bounded retries because registry-backed image transfer is idempotent. */
+async function loadMinikubeImageAsync(
+  context: MinikubeCliContext,
+  identity: MinikubeClusterIdentity,
+  image: string,
+  attempt: number,
+  signal?: AbortSignal,
+): Promise<InfraResult<null>> {
+  const loaded = await runCheckedMinikubeCommandAsync(
+    context.runner,
+    context.executable,
+    ['image', 'load', image, '-p', identity.profile],
+    signal,
+  );
+  if (loaded.ok) return { ok: true, value: null, diagnostics: [] };
+  if (attempt >= IMAGE_LOAD_ATTEMPTS) return loaded;
+  await delayMinikubePollAsync(context.pollIntervalMs, signal);
+  return loadMinikubeImageAsync(context, identity, image, attempt + 1, signal);
 }
 
 async function suspendMinikubeCliAsync(
