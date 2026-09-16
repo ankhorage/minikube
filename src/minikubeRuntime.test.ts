@@ -1,5 +1,6 @@
 import type {
   InfraExecutionContext,
+  InfraResult,
   InfraRuntimeDesiredState,
   InfraWorkloadSpec,
 } from '@ankhorage/contracts/infra';
@@ -7,6 +8,7 @@ import { expect, it } from 'bun:test';
 
 import { createInfraAdapter } from './index';
 import { FakeMinikubeControlPlane } from './runtimeFixtures.test';
+import type { MinikubeClusterObservation } from './types/minikubeRuntime';
 
 it('plans and converges the complete local runtime lifecycle', async () => {
   const controlPlane = new FakeMinikubeControlPlane();
@@ -45,6 +47,23 @@ it('retains the Minikube cluster when persistent workload data is not authorized
   expect(controlPlane.calls).not.toContain('destroy');
 });
 
+it('waits for transient running cluster access before destructive inspection', async () => {
+  const controlPlane = new TransientMinikubeControlPlane();
+  const adapter = createInfraAdapter({ controlPlane });
+  const context = createContext();
+  const desired = createDesired();
+  expect((await adapter.ensureAsync(context, desired)).ok).toBe(true);
+  const waitsBeforeDestroy = countCalls(controlPlane, 'wait');
+  controlPlane.state = 'pending';
+
+  const result = await adapter.destroyAsync(context, desired, createDestroyRequest());
+
+  expect(result.ok).toBe(true);
+  expect(countCalls(controlPlane, 'wait')).toBe(waitsBeforeDestroy + 1);
+  expect(controlPlane.calls).toContain('destroy');
+  expect(controlPlane.state).toBe('absent');
+});
+
 it('refuses cluster deletion while retained resources cannot be inspected', async () => {
   const controlPlane = new FakeMinikubeControlPlane();
   const adapter = createInfraAdapter({ controlPlane });
@@ -52,9 +71,11 @@ it('refuses cluster deletion while retained resources cannot be inspected', asyn
   expect((await adapter.ensureAsync(context, createDesired())).ok).toBe(true);
   const desired = createDesired();
   expect((await adapter.suspendAsync(context, desired)).ok).toBe(true);
+  const waitsBeforeDestroy = countCalls(controlPlane, 'wait');
 
   const result = await adapter.destroyAsync(context, desired, createDestroyRequest());
   expect(result.ok).toBe(false);
+  expect(countCalls(controlPlane, 'wait')).toBe(waitsBeforeDestroy);
   expect(controlPlane.calls).not.toContain('destroy');
 });
 
@@ -125,4 +146,16 @@ function createDestroyRequest() {
     confirmation: { projectId: 'sample', environment: 'local' as const },
     persistence: { policy: 'retain' as const },
   };
+}
+
+/*** Count exact control-plane calls without mutating the fixture history. */
+function countCalls(controlPlane: FakeMinikubeControlPlane, call: string): number {
+  return controlPlane.calls.filter((candidate) => candidate === call).length;
+}
+
+class TransientMinikubeControlPlane extends FakeMinikubeControlPlane {
+  override waitUntilReadyAsync(): Promise<InfraResult<MinikubeClusterObservation>> {
+    this.state = 'ready';
+    return super.waitUntilReadyAsync();
+  }
 }
