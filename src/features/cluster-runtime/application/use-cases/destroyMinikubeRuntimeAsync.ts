@@ -29,8 +29,13 @@ export async function destroyMinikubeRuntimeAsync(
   if (observed.value.state === 'absent') {
     return { ok: true, value: { resources: [], outputs: [] }, diagnostics: [] };
   }
-  if (observed.value.api === undefined) return missingDestroyAccess();
-  const removed = await createKubernetesDriver({ api: observed.value.api }).removeAsync(
+  const accessible =
+    observed.value.api === undefined && observed.value.state !== 'stopped'
+      ? await options.controlPlane.waitUntilReadyAsync(identity.value, context.signal)
+      : observed;
+  if (!accessible.ok) return accessible;
+  if (accessible.value.api === undefined) return missingDestroyAccess();
+  const removed = await createKubernetesDriver({ api: accessible.value.api }).removeAsync(
     { context, ownerAdapter: 'minikube', workloads: [], availableOutputs: [] },
     request,
   );
