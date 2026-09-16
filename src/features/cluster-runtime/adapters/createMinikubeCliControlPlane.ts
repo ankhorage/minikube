@@ -12,6 +12,8 @@ import { inspectMinikubeAsync } from './inspectMinikubeAsync';
 import { delayMinikubePollAsync, runCheckedMinikubeCommandAsync } from './minikubeCliProcess';
 import { readMinikubeEndpoints } from './readMinikubeEndpoints';
 
+const IMAGE_LOAD_ATTEMPTS = 3;
+
 interface MinikubeCliContext {
   readonly runner: MinikubeCommandRunner;
   readonly executable: string;
@@ -38,6 +40,7 @@ export function createMinikubeCliControlPlane(
   return createControlPlane(context);
 }
 
+/*** Bind the Minikube control-plane operations to one CLI execution context. */
 function createControlPlane(context: MinikubeCliContext): MinikubeControlPlane {
   return {
     validateAsync: (spec, signal) => validateMinikubeCliAsync(context, spec, signal),
@@ -53,6 +56,7 @@ function createControlPlane(context: MinikubeCliContext): MinikubeControlPlane {
   };
 }
 
+/*** Validate the required Minikube, container-driver, and kubectl commands. */
 async function validateMinikubeCliAsync(
   context: MinikubeCliContext,
   spec: MinikubeClusterSpec,
@@ -75,6 +79,7 @@ async function validateMinikubeCliAsync(
   return { ok: true, value: null, diagnostics: [] };
 }
 
+/*** Ensure the exact Minikube profile exists with the requested configuration. */
 async function ensureMinikubeCliAsync(
   context: MinikubeCliContext,
   spec: MinikubeClusterSpec,
@@ -94,6 +99,7 @@ async function ensureMinikubeCliAsync(
   return updated.ok && updated.value.configurationMatches ? updated : profileConfigurationDrift();
 }
 
+/*** Wait until the owned Minikube profile reports ready or reaches its readiness deadline. */
 async function waitForMinikubeCliAsync(
   context: MinikubeCliContext,
   identity: MinikubeClusterIdentity,
@@ -112,6 +118,7 @@ async function waitForMinikubeCliAsync(
   }
 }
 
+/*** Load every workload image into Minikube, retrying transient image-transfer failures. */
 async function loadMinikubeImagesAsync(
   context: MinikubeCliContext,
   identity: MinikubeClusterIdentity,
@@ -119,17 +126,33 @@ async function loadMinikubeImagesAsync(
   signal?: AbortSignal,
 ): Promise<InfraResult<null>> {
   for (const image of images) {
-    const loaded = await runCheckedMinikubeCommandAsync(
-      context.runner,
-      context.executable,
-      ['image', 'load', image, '-p', identity.profile],
-      signal,
-    );
+    const loaded = await loadMinikubeImageAsync(context, identity, image, 1, signal);
     if (!loaded.ok) return loaded;
   }
   return { ok: true, value: null, diagnostics: [] };
 }
 
+/*** Load one image with bounded retries because registry-backed image transfer is idempotent. */
+async function loadMinikubeImageAsync(
+  context: MinikubeCliContext,
+  identity: MinikubeClusterIdentity,
+  image: string,
+  attempt: number,
+  signal?: AbortSignal,
+): Promise<InfraResult<null>> {
+  const loaded = await runCheckedMinikubeCommandAsync(
+    context.runner,
+    context.executable,
+    ['image', 'load', image, '-p', identity.profile],
+    signal,
+  );
+  if (loaded.ok) return { ok: true, value: null, diagnostics: [] };
+  if (attempt >= IMAGE_LOAD_ATTEMPTS) return loaded;
+  await delayMinikubePollAsync(context.pollIntervalMs, signal);
+  return loadMinikubeImageAsync(context, identity, image, attempt + 1, signal);
+}
+
+/*** Suspend a running Minikube profile without destroying persistent state. */
 async function suspendMinikubeCliAsync(
   context: MinikubeCliContext,
   identity: MinikubeClusterIdentity,
@@ -149,6 +172,7 @@ async function suspendMinikubeCliAsync(
   return stopped.ok ? { ok: true, value: null, diagnostics: [] } : stopped;
 }
 
+/*** Destroy the owned Minikube profile when it exists. */
 async function destroyMinikubeCliAsync(
   context: MinikubeCliContext,
   identity: MinikubeClusterIdentity,
@@ -168,6 +192,7 @@ async function destroyMinikubeCliAsync(
   return destroyed.ok ? { ok: true, value: null, diagnostics: [] } : destroyed;
 }
 
+/*** Build the canonical Minikube start arguments for one runtime specification. */
 function createStartArguments(spec: MinikubeClusterSpec): readonly string[] {
   return [
     'start',
@@ -197,6 +222,7 @@ function profileConfigurationDrift(): InfraResult<never> {
   };
 }
 
+/*** Report a bounded readiness timeout without leaking provider command output. */
 function readinessTimeout(): InfraResult<never> {
   return {
     ok: false,
@@ -210,12 +236,14 @@ function readinessTimeout(): InfraResult<never> {
   };
 }
 
+/*** Require a non-negative integer Minikube option. */
 function assertNonNegativeInteger(name: string, value: number): void {
   if (!Number.isInteger(value) || value < 0) {
     throw new TypeError(`Minikube ${name} must be a non-negative integer.`);
   }
 }
 
+/*** Require a positive integer Minikube option. */
 function assertPositiveInteger(name: string, value: number): void {
   if (!Number.isInteger(value) || value <= 0) {
     throw new TypeError(`Minikube ${name} must be a positive integer.`);
