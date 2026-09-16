@@ -1,5 +1,12 @@
 # @ankhorage/minikube
 
+## 0.4.4
+
+### Patch Changes
+
+- 435de78: Wait for transiently non-ready running Minikube profiles to expose Kubernetes access before
+  destructive ownership inspection, while keeping stopped profiles fail-closed.
+
 ## 0.4.3
 
 ### Patch Changes
