@@ -21,7 +21,7 @@ reconciliation are delegated to the published Kubernetes driver.
 
 Kind: `function`
 Module: `src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts`
-Source: `src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts:25:1`
+Source: `src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts:27:1`
 
 ### Signatures
 
