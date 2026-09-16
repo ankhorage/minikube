@@ -47,6 +47,28 @@ it('operates one exact Minikube profile through the stateless CLI boundary', asy
   expect(runner.state).toBe('absent');
 });
 
+it('retries a transient Minikube image load failure', async () => {
+  const runner = new FakeMinikubeCommandRunner();
+  runner.imageLoadFailuresRemaining = 1;
+  const controlPlane = createMinikubeCliControlPlane({ runner, pollIntervalMs: 0 });
+
+  const loaded = await controlPlane.loadImagesAsync(createSpec(), ['registry.example/api:1']);
+
+  expect(loaded.ok).toBe(true);
+  expect(imageLoadCalls(runner)).toHaveLength(2);
+});
+
+it('bounds repeated Minikube image load failures', async () => {
+  const runner = new FakeMinikubeCommandRunner();
+  runner.imageLoadFailuresRemaining = 3;
+  const controlPlane = createMinikubeCliControlPlane({ runner, pollIntervalMs: 0 });
+
+  const loaded = await controlPlane.loadImagesAsync(createSpec(), ['registry.example/api:1']);
+
+  expect(loaded.ok).toBe(false);
+  expect(imageLoadCalls(runner)).toHaveLength(3);
+});
+
 it('prefers the declared public origin when it addresses the fixed listener', async () => {
   const endpoints = await createMinikubeCliControlPlane().repairEndpointsAsync(
     createSpec(),
@@ -109,11 +131,19 @@ function createPublishedWorkload(): InfraWorkloadSpec {
   };
 }
 
+function imageLoadCalls(runner: FakeMinikubeCommandRunner): readonly MinikubeCommandRequest[] {
+  return runner.calls.filter(
+    ({ executable, arguments: [command, subcommand] }) =>
+      executable === 'minikube' && command === 'image' && subcommand === 'load',
+  );
+}
+
 class FakeMinikubeCommandRunner implements MinikubeCommandRunner {
   readonly calls: MinikubeCommandRequest[] = [];
   state: 'absent' | 'ready' | 'stopped' = 'absent';
   driver = 'docker';
   failNext = false;
+  imageLoadFailuresRemaining = 0;
   publishedPorts: readonly number[] = [];
 
   runAsync(request: MinikubeCommandRequest): Promise<MinikubeCommandResult> {
@@ -138,6 +168,10 @@ class FakeMinikubeCommandRunner implements MinikubeCommandRunner {
         return match?.[1] === undefined ? [] : [Number(match[1])];
       });
       return result(0);
+    }
+    if (command === 'image' && subcommand === 'load' && this.imageLoadFailuresRemaining > 0) {
+      this.imageLoadFailuresRemaining -= 1;
+      return result(1, '', 'transient image load failure');
     }
     if (command === 'service' && subcommand === 'list') {
       return result(
