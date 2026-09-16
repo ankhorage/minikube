@@ -153,6 +153,10 @@ class FakeMinikubeCommandRunner implements MinikubeCommandRunner {
       return result(1, '', 'provider-secret-output');
     }
     if (request.executable !== 'minikube') return result(0);
+    return this.runMinikubeAsync(request);
+  }
+
+  private runMinikubeAsync(request: MinikubeCommandRequest): Promise<MinikubeCommandResult> {
     const [command, subcommand] = request.arguments;
     if (command === 'version') return result(0, '{}');
     if (command === 'profile' && subcommand === 'list') return result(0, this.profileList());
