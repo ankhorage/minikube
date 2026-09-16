@@ -1,5 +1,11 @@
 # @ankhorage/minikube
 
+## 0.4.3
+
+### Patch Changes
+
+- ed17c6a: Retry transient Minikube image-load failures with a bounded attempt count.
+
 ## 0.4.2
 
 ### Patch Changes
