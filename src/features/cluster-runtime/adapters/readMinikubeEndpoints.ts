@@ -25,9 +25,9 @@ function createEndpoint(
   workload: InfraWorkloadSpec,
   preferredOrigin: URL | undefined,
 ): readonly MinikubeEndpointOutput[] {
-  const publishedPort = workload.ports?.find(
-    (port) => port.publishedPort !== undefined,
-  )?.publishedPort;
+  const publishedPort = Object.entries(workload.ports ?? {})
+    .sort(([left], [right]) => left.localeCompare(right))
+    .find(([, port]) => port.publishedPort !== undefined)?.[1].publishedPort;
   if (publishedPort === undefined) return [];
   const value = matchesPort(preferredOrigin, publishedPort)
     ? preferredOrigin.origin

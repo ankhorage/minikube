@@ -40,9 +40,11 @@ export function getMinikubeClusterSpec(
       publishedPorts: [
         ...new Set(
           desired.workloads.flatMap((workload) =>
-            (workload.ports ?? []).flatMap(({ publishedPort }) =>
-              publishedPort === undefined ? [] : [publishedPort],
-            ),
+            Object.entries(workload.ports ?? {})
+              .sort(([left], [right]) => left.localeCompare(right))
+              .flatMap(([, { publishedPort }]) =>
+                publishedPort === undefined ? [] : [publishedPort],
+              ),
           ),
         ),
       ].sort((left, right) => left - right),

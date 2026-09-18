@@ -126,7 +126,7 @@ function createPublishedWorkload(): InfraWorkloadSpec {
   return {
     id: 'api',
     artifact: { kind: 'image', image: 'registry.example/api:1' },
-    ports: [{ name: 'http', port: 8080, publishedPort: 49_152 }],
+    ports: { http: { port: 8080, publishedPort: 49_152 } },
     exposure: 'public',
   };
 }
