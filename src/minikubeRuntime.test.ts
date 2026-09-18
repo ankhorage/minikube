@@ -134,7 +134,11 @@ function createContext(): InfraExecutionContext {
       deployment: { compute: { provider: 'local' }, runtime: { provider: 'minikube' } },
       networking: { domain: 'api.sample.test' },
     },
-    credentials: { resolveAsync: () => Promise.resolve({ ok: true, value: {}, diagnostics: [] }) },
+    credentials: {
+      findAsync: () => Promise.resolve({ ok: true, value: null, diagnostics: [] }),
+      resolveAsync: () => Promise.resolve({ ok: true, value: {}, diagnostics: [] }),
+      persistAsync: () => Promise.resolve({ ok: true, value: null, diagnostics: [] }),
+    },
     secrets: {
       resolveAsync: () => Promise.resolve({ ok: true, value: 'secret', diagnostics: [] }),
     },
