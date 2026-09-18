@@ -110,7 +110,11 @@ function createDesired(persistent = false): InfraRuntimeDesiredState<'minikube'>
     ports: { http: { port: 8080, publishedPort: 18_080 } },
     exposure: 'public',
     ...(persistent
-      ? { persistence: { data: { id: 'data', mountPath: '/data', sizeGiB: 1, retention: 'retain' } } }
+      ? {
+          persistence: {
+            data: { id: 'data', mountPath: '/data', sizeGiB: 1, retention: 'retain' },
+          },
+        }
       : {}),
   };
   return {
