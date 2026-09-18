@@ -107,10 +107,10 @@ function createDesired(persistent = false): InfraRuntimeDesiredState<'minikube'>
   const workload: InfraWorkloadSpec = {
     id: 'api',
     artifact: { kind: 'image', image: 'registry.example/api@sha256:abc' },
-    ports: [{ name: 'http', port: 8080, publishedPort: 18_080 }],
+    ports: { http: { port: 8080, publishedPort: 18_080 } },
     exposure: 'public',
     ...(persistent
-      ? { persistence: [{ id: 'data', mountPath: '/data', sizeGiB: 1, retention: 'retain' }] }
+      ? { persistence: { data: { id: 'data', mountPath: '/data', sizeGiB: 1, retention: 'retain' } } }
       : {}),
   };
   return {
