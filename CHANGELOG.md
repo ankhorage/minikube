@@ -1,5 +1,11 @@
 # @ankhorage/minikube
 
+## 0.4.5
+
+### Patch Changes
+
+- 0ada2ec: Consume the Contracts 22 canonical workload port registries.
+
 ## 0.4.4
 
 ### Patch Changes
