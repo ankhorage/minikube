@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "sourceDevtoolsVersion": "1.14.6",
+  "sourceDevtoolsVersion": "1.17.2",
   "skills": {
     "ankhorage-coding-rules": {
       "files": {
         ".agents/skills/ankhorage-coding-rules/agents/openai.yaml": "sha256:d4c418aba3af19bd7cab27ccf6f86a14af426646b0d9c66ae9535fc3b7f861bb",
-        ".agents/skills/ankhorage-coding-rules/SKILL.md": "sha256:f34f31490fea1687b801e2ad915f1b06422d0c420a94240d18c00ad0dab94c02"
+        ".agents/skills/ankhorage-coding-rules/SKILL.md": "sha256:76c4bfd1a09ea13acf50a7ee2fa23d96e1466229d31d1fd2eb455de77735ef75"
       }
     },
     "hexagonal-architecture": {
