@@ -11,8 +11,12 @@
       "line": 21,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["MinikubeAdapterOptions"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "MinikubeAdapterOptions"
+    ],
     "signatures": [
       {
         "label": "(options?: MinikubeAdapterOptions | undefined) => InfraRuntimeAdapter<\"minikube\">",
@@ -43,8 +47,13 @@
       "line": 27,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["MinikubeCliControlPlaneOptions", "MinikubeControlPlane"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "MinikubeCliControlPlaneOptions",
+      "MinikubeControlPlane"
+    ],
     "signatures": [
       {
         "label": "(options?: MinikubeCliControlPlaneOptions) => MinikubeControlPlane",
@@ -75,7 +84,9 @@
       "line": 5,
       "column": 14
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [],
@@ -93,8 +104,12 @@
       "line": 11,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["MinikubeControlPlane"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "MinikubeControlPlane"
+    ],
     "signatures": [],
     "members": [
       {
@@ -119,8 +134,12 @@
       "line": 32,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["MinikubeCommandRunner"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "MinikubeCommandRunner"
+    ],
     "signatures": [],
     "members": [
       {
@@ -180,7 +199,9 @@
       "line": 41,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [
@@ -220,7 +241,9 @@
       "line": 56,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [
@@ -267,7 +290,9 @@
       "line": 47,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [
@@ -342,7 +367,9 @@
       "line": 15,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [
@@ -382,7 +409,9 @@
       "line": 21,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [
@@ -422,8 +451,13 @@
       "line": 28,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
-    "relatedSymbols": ["MinikubeCommandRequest", "MinikubeCommandResult"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
+    "relatedSymbols": [
+      "MinikubeCommandRequest",
+      "MinikubeCommandResult"
+    ],
     "signatures": [],
     "members": [
       {
@@ -448,7 +482,9 @@
       "line": 66,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [
       "MinikubeClusterIdentity",
       "MinikubeClusterObservation",
@@ -528,7 +564,9 @@
       "line": 95,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [],
@@ -546,7 +584,9 @@
       "line": 63,
       "column": 1
     },
-    "exportPaths": ["src/index.ts"],
+    "exportPaths": [
+      "src/index.ts"
+    ],
     "relatedSymbols": [],
     "signatures": [],
     "members": [],

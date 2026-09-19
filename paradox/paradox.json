@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.4.2",
+      "value": "v0.4.8",
       "color": "cb3837"
     },
     {
@@ -66,19 +66,25 @@
   "readmeCli": null,
   "readmeConfig": null,
   "config": null,
-  "entrypoints": ["src/index.ts"],
+  "entrypoints": [
+    "src/index.ts"
+  ],
   "modules": [
     {
       "path": "examples/basic-usage/index.ts",
       "isEntrypoint": false,
-      "dependencies": ["dist/index.d.ts"],
+      "dependencies": [
+        "dist/index.d.ts"
+      ],
       "exports": []
     },
     {
       "path": "src/constants/infra.ts",
       "isEntrypoint": false,
       "dependencies": [],
-      "exports": ["infraAdapterDescriptor"]
+      "exports": [
+        "infraAdapterDescriptor"
+      ]
     },
     {
       "path": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
@@ -90,13 +96,19 @@
         "src/features/cluster-runtime/adapters/readMinikubeEndpoints.ts",
         "src/types/minikubeRuntime.ts"
       ],
-      "exports": ["createMinikubeCliControlPlane"]
+      "exports": [
+        "createMinikubeCliControlPlane"
+      ]
     },
     {
       "path": "src/features/cluster-runtime/adapters/createSubprocessMinikubeCommandRunner.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/types/minikubeRuntime.ts"],
-      "exports": ["createSubprocessMinikubeCommandRunner"]
+      "dependencies": [
+        "src/types/minikubeRuntime.ts"
+      ],
+      "exports": [
+        "createSubprocessMinikubeCommandRunner"
+      ]
     },
     {
       "path": "src/features/cluster-runtime/adapters/inspectMinikubeAsync.ts",
@@ -105,12 +117,16 @@
         "src/features/cluster-runtime/adapters/minikubeCliProcess.ts",
         "src/types/minikubeRuntime.ts"
       ],
-      "exports": ["inspectMinikubeAsync"]
+      "exports": [
+        "inspectMinikubeAsync"
+      ]
     },
     {
       "path": "src/features/cluster-runtime/adapters/minikubeCliProcess.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/types/minikubeRuntime.ts"],
+      "dependencies": [
+        "src/types/minikubeRuntime.ts"
+      ],
       "exports": [
         "delayMinikubePollAsync",
         "runCheckedMinikubeCommandAsync",
@@ -120,8 +136,12 @@
     {
       "path": "src/features/cluster-runtime/adapters/readMinikubeEndpoints.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/types/minikubeRuntime.ts"],
-      "exports": ["readMinikubeEndpoints"]
+      "dependencies": [
+        "src/types/minikubeRuntime.ts"
+      ],
+      "exports": [
+        "readMinikubeEndpoints"
+      ]
     },
     {
       "path": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
@@ -131,7 +151,9 @@
         "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
         "src/types/minikubeRuntime.ts"
       ],
-      "exports": ["destroyMinikubeRuntimeAsync"]
+      "exports": [
+        "destroyMinikubeRuntimeAsync"
+      ]
     },
     {
       "path": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts",
@@ -143,7 +165,9 @@
         "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts",
         "src/types/minikubeRuntime.ts"
       ],
-      "exports": ["ensureMinikubeRuntimeAsync"]
+      "exports": [
+        "ensureMinikubeRuntimeAsync"
+      ]
     },
     {
       "path": "src/features/cluster-runtime/application/use-cases/getMinikubeStatusAsync.ts",
@@ -154,7 +178,9 @@
         "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
         "src/types/minikubeRuntime.ts"
       ],
-      "exports": ["getMinikubeStatusAsync"]
+      "exports": [
+        "getMinikubeStatusAsync"
+      ]
     },
     {
       "path": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
@@ -166,7 +192,9 @@
         "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts",
         "src/types/minikubeRuntime.ts"
       ],
-      "exports": ["planMinikubeRuntimeAsync"]
+      "exports": [
+        "planMinikubeRuntimeAsync"
+      ]
     },
     {
       "path": "src/features/cluster-runtime/application/use-cases/suspendMinikubeRuntimeAsync.ts",
@@ -176,7 +204,9 @@
         "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
         "src/types/minikubeRuntime.ts"
       ],
-      "exports": ["suspendMinikubeRuntimeAsync"]
+      "exports": [
+        "suspendMinikubeRuntimeAsync"
+      ]
     },
     {
       "path": "src/features/cluster-runtime/application/use-cases/validateMinikubeRuntimeAsync.ts",
@@ -185,7 +215,9 @@
         "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts",
         "src/types/minikubeRuntime.ts"
       ],
-      "exports": ["validateMinikubeRuntimeAsync"]
+      "exports": [
+        "validateMinikubeRuntimeAsync"
+      ]
     },
     {
       "path": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
@@ -201,25 +233,39 @@
         "src/features/cluster-runtime/application/use-cases/validateMinikubeRuntimeAsync.ts",
         "src/types/minikubeRuntime.ts"
       ],
-      "exports": ["createInfraAdapter"]
+      "exports": [
+        "createInfraAdapter"
+      ]
     },
     {
       "path": "src/features/cluster-runtime/utils/createKubernetesDriverRequest.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/types/minikubeRuntime.ts"],
-      "exports": ["createKubernetesDriverRequest"]
+      "dependencies": [
+        "src/types/minikubeRuntime.ts"
+      ],
+      "exports": [
+        "createKubernetesDriverRequest"
+      ]
     },
     {
       "path": "src/features/cluster-runtime/utils/createMinikubeClusterOwner.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/types/minikubeRuntime.ts"],
-      "exports": ["createMinikubeClusterOwner"]
+      "dependencies": [
+        "src/types/minikubeRuntime.ts"
+      ],
+      "exports": [
+        "createMinikubeClusterOwner"
+      ]
     },
     {
       "path": "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/types/minikubeRuntime.ts"],
-      "exports": ["getMinikubeClusterIdentity"]
+      "dependencies": [
+        "src/types/minikubeRuntime.ts"
+      ],
+      "exports": [
+        "getMinikubeClusterIdentity"
+      ]
     },
     {
       "path": "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts",
@@ -228,7 +274,9 @@
         "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
         "src/types/minikubeRuntime.ts"
       ],
-      "exports": ["getMinikubeClusterSpec"]
+      "exports": [
+        "getMinikubeClusterSpec"
+      ]
     },
     {
       "path": "src/index.ts",
@@ -254,7 +302,10 @@
     {
       "path": "src/infraAdapter.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/index.ts", "src/runtimeFixtures.test.ts"],
+      "dependencies": [
+        "src/index.ts",
+        "src/runtimeFixtures.test.ts"
+      ],
       "exports": []
     },
     {
@@ -269,14 +320,22 @@
     {
       "path": "src/minikubeRuntime.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/index.ts", "src/runtimeFixtures.test.ts"],
+      "dependencies": [
+        "src/index.ts",
+        "src/runtimeFixtures.test.ts",
+        "src/types/minikubeRuntime.ts"
+      ],
       "exports": []
     },
     {
       "path": "src/runtimeFixtures.test.ts",
       "isEntrypoint": false,
-      "dependencies": ["src/index.ts"],
-      "exports": ["FakeMinikubeControlPlane"]
+      "dependencies": [
+        "src/index.ts"
+      ],
+      "exports": [
+        "FakeMinikubeControlPlane"
+      ]
     },
     {
       "path": "src/types/minikubeRuntime.ts",
@@ -310,8 +369,12 @@
         "line": 21,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["MinikubeAdapterOptions"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "MinikubeAdapterOptions"
+      ],
       "signatures": [
         {
           "label": "(options?: MinikubeAdapterOptions | undefined) => InfraRuntimeAdapter<\"minikube\">",
@@ -342,8 +405,13 @@
         "line": 27,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["MinikubeCliControlPlaneOptions", "MinikubeControlPlane"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "MinikubeCliControlPlaneOptions",
+        "MinikubeControlPlane"
+      ],
       "signatures": [
         {
           "label": "(options?: MinikubeCliControlPlaneOptions) => MinikubeControlPlane",
@@ -374,7 +442,9 @@
         "line": 5,
         "column": 14
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -392,8 +462,12 @@
         "line": 11,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["MinikubeControlPlane"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "MinikubeControlPlane"
+      ],
       "signatures": [],
       "members": [
         {
@@ -418,8 +492,12 @@
         "line": 32,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["MinikubeCommandRunner"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "MinikubeCommandRunner"
+      ],
       "signatures": [],
       "members": [
         {
@@ -479,7 +557,9 @@
         "line": 41,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [
@@ -519,7 +599,9 @@
         "line": 56,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [
@@ -566,7 +648,9 @@
         "line": 47,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [
@@ -641,7 +725,9 @@
         "line": 15,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [
@@ -681,7 +767,9 @@
         "line": 21,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [
@@ -721,8 +809,13 @@
         "line": 28,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
-      "relatedSymbols": ["MinikubeCommandRequest", "MinikubeCommandResult"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
+      "relatedSymbols": [
+        "MinikubeCommandRequest",
+        "MinikubeCommandResult"
+      ],
       "signatures": [],
       "members": [
         {
@@ -747,7 +840,9 @@
         "line": 66,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [
         "MinikubeClusterIdentity",
         "MinikubeClusterObservation",
@@ -827,7 +922,9 @@
         "line": 95,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -845,7 +942,9 @@
         "line": 63,
         "column": 1
       },
-      "exportPaths": ["src/index.ts"],
+      "exportPaths": [
+        "src/index.ts"
+      ],
       "relatedSymbols": [],
       "signatures": [],
       "members": [],
@@ -1237,7 +1336,7 @@
       "description": "Refuse cluster deletion when persistent Kubernetes ownership cannot be inspected.",
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
-        "line": 52,
+        "line": 57,
         "column": 1
       }
     },
@@ -1246,7 +1345,7 @@
       "description": "Require exact project and environment confirmation before any destructive inspection.",
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
-        "line": 66,
+        "line": 71,
         "column": 1
       }
     },
@@ -1255,7 +1354,7 @@
       "description": "Return the canonical Minikube destructive-confirmation diagnostic.",
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
-        "line": 76,
+        "line": 81,
         "column": 1
       }
     },
@@ -1444,7 +1543,7 @@
       "description": null,
       "sourceLocation": {
         "filePath": "src/minikubeCliControlPlane.test.ts",
-        "line": 214,
+        "line": 218,
         "column": 1
       }
     },
@@ -1453,7 +1552,7 @@
       "description": "Create a canonical local Minikube runtime request.",
       "sourceLocation": {
         "filePath": "src/minikubeRuntime.test.ts",
-        "line": 86,
+        "line": 106,
         "column": 1
       }
     },
@@ -1462,7 +1561,7 @@
       "description": "Create the execution-only environment context.",
       "sourceLocation": {
         "filePath": "src/minikubeRuntime.test.ts",
-        "line": 105,
+        "line": 129,
         "column": 1
       }
     },
@@ -1471,7 +1570,16 @@
       "description": "Create exact non-persistent destruction confirmation.",
       "sourceLocation": {
         "filePath": "src/minikubeRuntime.test.ts",
-        "line": 121,
+        "line": 149,
+        "column": 1
+      }
+    },
+    {
+      "name": "countCalls",
+      "description": "Count exact control-plane calls without mutating the fixture history.",
+      "sourceLocation": {
+        "filePath": "src/minikubeRuntime.test.ts",
+        "line": 159,
         "column": 1
       }
     },
@@ -1571,6 +1679,11 @@
       {
         "fromPath": "src/minikubeRuntime.test.ts",
         "toPath": "src/runtimeFixtures.test.ts",
+        "sourcePath": "src/minikubeRuntime.test.ts"
+      },
+      {
+        "fromPath": "src/minikubeRuntime.test.ts",
+        "toPath": "src/types/minikubeRuntime.ts",
         "sourcePath": "src/minikubeRuntime.test.ts"
       },
       {
@@ -1961,6 +2074,18 @@
       },
       {
         "fromSymbol": "runAsync",
+        "toSymbol": "runMinikubeAsync",
+        "callExpression": "this.runMinikubeAsync",
+        "sourcePath": "src/minikubeCliControlPlane.test.ts"
+      },
+      {
+        "fromSymbol": "runMinikubeAsync",
+        "toSymbol": "result",
+        "callExpression": "result",
+        "sourcePath": "src/minikubeCliControlPlane.test.ts"
+      },
+      {
+        "fromSymbol": "runMinikubeAsync",
         "toSymbol": "profileList",
         "callExpression": "this.profileList",
         "sourcePath": "src/minikubeCliControlPlane.test.ts"
@@ -1999,6 +2124,18 @@
         "fromSymbol": "src/minikubeRuntime.test.ts",
         "toSymbol": "createDestroyRequest",
         "callExpression": "createDestroyRequest",
+        "sourcePath": "src/minikubeRuntime.test.ts"
+      },
+      {
+        "fromSymbol": "src/minikubeRuntime.test.ts",
+        "toSymbol": "countCalls",
+        "callExpression": "countCalls",
+        "sourcePath": "src/minikubeRuntime.test.ts"
+      },
+      {
+        "fromSymbol": "waitUntilReadyAsync",
+        "toSymbol": "waitUntilReadyAsync",
+        "callExpression": "super.waitUntilReadyAsync",
         "sourcePath": "src/minikubeRuntime.test.ts"
       },
       {
@@ -2533,6 +2670,12 @@
         "fromSymbol": "destroyMinikubeRuntimeAsync",
         "toSymbol": "createMinikubeClusterOwner",
         "callExpression": "createMinikubeClusterOwner",
+        "sourcePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts"
+      },
+      {
+        "fromSymbol": "destroyMinikubeRuntimeAsync",
+        "toSymbol": "waitUntilReadyAsync",
+        "callExpression": "options.controlPlane.waitUntilReadyAsync",
         "sourcePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts"
       },
       {
