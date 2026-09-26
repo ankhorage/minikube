@@ -62,7 +62,7 @@
     "@ankhorage/devtools": "^2.0.0",
     "@ankhorage/paradox": "^0.2.6",
     "@types/bun": "^1.4.1",
-    "@types/node": "^26.4.1",
+    "@types/node": "^26.6.3",
     "typescript": "~6.0.3"
   },
   "packageManager": "bun@1.4.2"
