@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.4.16",
+      "value": "v0.4.17",
       "color": "cb3837"
     },
     {
@@ -55,16 +55,31 @@
     },
     {
       "id": "docs",
-      "label": "docs",
-      "value": "paradox",
-      "color": "0f766e"
+      "label": "paradox",
+      "value": "warnings",
+      "color": "ca8a04"
     }
   ],
-  "usage": null,
-  "readmeUsageDescription": null,
-  "readmeUsage": [],
-  "readmeCli": null,
-  "readmeConfig": null,
+  "usage": {
+    "packageName": "@ankhorage/minikube",
+    "command": "ankh minikube --help"
+  },
+  "usageEntries": [],
+  "exampleCount": 1,
+  "findings": [
+    {
+      "ruleId": "documentation.public-function.description",
+      "severity": "warning",
+      "message": "Public function createMinikubeCliControlPlane has no Paradox description.",
+      "sourcePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
+      "line": 27
+    }
+  ],
+  "readmeConfig": {
+    "language": "ts",
+    "code": "import { defineParadoxConfig } from '@ankhorage/paradox';\n\nexport default defineParadoxConfig({\n  mode: 'write',\n  package: { root: '.', entrypoints: ['src/index.ts'] },\n  output: { dir: './paradox' },\n});",
+    "sourcePath": "paradox.config.ts"
+  },
   "config": null,
   "entrypoints": [
     "src/index.ts"
@@ -359,9 +374,11 @@
   "exports": [
     {
       "name": "createInfraAdapter",
+      "title": null,
       "description": "Create the canonical Minikube runtime adapter entrypoint.\n\nThe caller supplies a Minikube-specific command boundary. Standard workload projection and\nreconciliation are delegated to the published Kubernetes driver.",
       "isReadme": true,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "function",
       "modulePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
       "sourceLocation": {
@@ -395,9 +412,11 @@
     },
     {
       "name": "createMinikubeCliControlPlane",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "function",
       "modulePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
       "sourceLocation": {
@@ -432,9 +451,11 @@
     },
     {
       "name": "infraAdapterDescriptor",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "value",
       "modulePath": "src/constants/infra.ts",
       "sourceLocation": {
@@ -452,9 +473,11 @@
     },
     {
       "name": "MinikubeAdapterOptions",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/minikubeRuntime.ts",
       "sourceLocation": {
@@ -482,9 +505,11 @@
     },
     {
       "name": "MinikubeCliControlPlaneOptions",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/minikubeRuntime.ts",
       "sourceLocation": {
@@ -547,9 +572,11 @@
     },
     {
       "name": "MinikubeClusterIdentity",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/minikubeRuntime.ts",
       "sourceLocation": {
@@ -589,9 +616,11 @@
     },
     {
       "name": "MinikubeClusterObservation",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/minikubeRuntime.ts",
       "sourceLocation": {
@@ -638,9 +667,11 @@
     },
     {
       "name": "MinikubeClusterSpec",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/minikubeRuntime.ts",
       "sourceLocation": {
@@ -715,9 +746,11 @@
     },
     {
       "name": "MinikubeCommandRequest",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/minikubeRuntime.ts",
       "sourceLocation": {
@@ -757,9 +790,11 @@
     },
     {
       "name": "MinikubeCommandResult",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/minikubeRuntime.ts",
       "sourceLocation": {
@@ -799,9 +834,11 @@
     },
     {
       "name": "MinikubeCommandRunner",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/minikubeRuntime.ts",
       "sourceLocation": {
@@ -830,9 +867,11 @@
     },
     {
       "name": "MinikubeControlPlane",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "type",
       "modulePath": "src/types/minikubeRuntime.ts",
       "sourceLocation": {
@@ -912,9 +951,11 @@
     },
     {
       "name": "MinikubeDesiredState",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "unknown",
       "modulePath": "src/types/minikubeRuntime.ts",
       "sourceLocation": {
@@ -932,9 +973,11 @@
     },
     {
       "name": "MinikubeEndpointOutput",
+      "title": null,
       "description": null,
       "isReadme": false,
-      "examples": [],
+      "see": [],
+      "security": [],
       "kind": "unknown",
       "modulePath": "src/types/minikubeRuntime.ts",
       "sourceLocation": {
@@ -956,6 +999,8 @@
     {
       "name": "createMinikubeCliControlPlane",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
         "line": 27,
@@ -965,6 +1010,8 @@
     {
       "name": "createControlPlane",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
         "line": 43,
@@ -974,6 +1021,8 @@
     {
       "name": "validateMinikubeCliAsync",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
         "line": 58,
@@ -983,6 +1032,8 @@
     {
       "name": "ensureMinikubeCliAsync",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
         "line": 80,
@@ -992,6 +1043,8 @@
     {
       "name": "waitForMinikubeCliAsync",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
         "line": 99,
@@ -1001,6 +1054,8 @@
     {
       "name": "loadMinikubeImagesAsync",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
         "line": 117,
@@ -1010,6 +1065,8 @@
     {
       "name": "loadMinikubeImageAsync",
       "description": "Load one image with bounded retries because registry-backed image transfer is idempotent.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
         "line": 131,
@@ -1019,6 +1076,8 @@
     {
       "name": "suspendMinikubeCliAsync",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
         "line": 150,
@@ -1028,6 +1087,8 @@
     {
       "name": "destroyMinikubeCliAsync",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
         "line": 169,
@@ -1037,6 +1098,8 @@
     {
       "name": "createStartArguments",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
         "line": 188,
@@ -1046,6 +1109,8 @@
     {
       "name": "profileConfigurationDrift",
       "description": "Refuse to report convergence when an existing profile cannot adopt required port mappings.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
         "line": 203,
@@ -1055,6 +1120,8 @@
     {
       "name": "readinessTimeout",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
         "line": 217,
@@ -1064,6 +1131,8 @@
     {
       "name": "assertNonNegativeInteger",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
         "line": 230,
@@ -1073,6 +1142,8 @@
     {
       "name": "assertPositiveInteger",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
         "line": 236,
@@ -1082,6 +1153,8 @@
     {
       "name": "createSubprocessMinikubeCommandRunner",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/createSubprocessMinikubeCommandRunner.ts",
         "line": 10,
@@ -1091,6 +1164,8 @@
     {
       "name": "runAsync",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/createSubprocessMinikubeCommandRunner.ts",
         "line": 15,
@@ -1100,6 +1175,8 @@
     {
       "name": "inspectMinikubeAsync",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/inspectMinikubeAsync.ts",
         "line": 31,
@@ -1109,6 +1186,8 @@
     {
       "name": "inspectExistingMinikubeAsync",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/inspectMinikubeAsync.ts",
         "line": 49,
@@ -1118,6 +1197,8 @@
     {
       "name": "createKubernetesApi",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/inspectMinikubeAsync.ts",
         "line": 75,
@@ -1127,6 +1208,8 @@
     {
       "name": "absentObservation",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/inspectMinikubeAsync.ts",
         "line": 83,
@@ -1136,6 +1219,8 @@
     {
       "name": "profileMatches",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/inspectMinikubeAsync.ts",
         "line": 92,
@@ -1145,6 +1230,8 @@
     {
       "name": "isClusterSpec",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/inspectMinikubeAsync.ts",
         "line": 105,
@@ -1154,6 +1241,8 @@
     {
       "name": "readProfile",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/inspectMinikubeAsync.ts",
         "line": 112,
@@ -1163,6 +1252,8 @@
     {
       "name": "toUnknownArray",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/inspectMinikubeAsync.ts",
         "line": 124,
@@ -1172,6 +1263,8 @@
     {
       "name": "readProfileConfig",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/inspectMinikubeAsync.ts",
         "line": 128,
@@ -1181,6 +1274,8 @@
     {
       "name": "readPublishedPorts",
       "description": "Parse Minikube's host-to-profile port mappings into sorted exact host listeners.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/inspectMinikubeAsync.ts",
         "line": 142,
@@ -1190,6 +1285,8 @@
     {
       "name": "arraysEqual",
       "description": "Compare two already sorted numeric port sets exactly.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/inspectMinikubeAsync.ts",
         "line": 155,
@@ -1199,6 +1296,8 @@
     {
       "name": "readStatus",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/inspectMinikubeAsync.ts",
         "line": 160,
@@ -1208,6 +1307,8 @@
     {
       "name": "parseJson",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/inspectMinikubeAsync.ts",
         "line": 175,
@@ -1217,6 +1318,8 @@
     {
       "name": "isRecord",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/inspectMinikubeAsync.ts",
         "line": 183,
@@ -1226,6 +1329,8 @@
     {
       "name": "invalidOutput",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/inspectMinikubeAsync.ts",
         "line": 187,
@@ -1235,6 +1340,8 @@
     {
       "name": "runMinikubeCommandAsync",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/minikubeCliProcess.ts",
         "line": 6,
@@ -1244,6 +1351,8 @@
     {
       "name": "runCheckedMinikubeCommandAsync",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/minikubeCliProcess.ts",
         "line": 25,
@@ -1253,6 +1362,8 @@
     {
       "name": "minikubeCommandFailure",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/minikubeCliProcess.ts",
         "line": 36,
@@ -1262,6 +1373,8 @@
     {
       "name": "delayMinikubePollAsync",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/minikubeCliProcess.ts",
         "line": 50,
@@ -1271,6 +1384,8 @@
     {
       "name": "onAbort",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/minikubeCliProcess.ts",
         "line": 57,
@@ -1280,6 +1395,8 @@
     {
       "name": "abortError",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/minikubeCliProcess.ts",
         "line": 69,
@@ -1289,6 +1406,8 @@
     {
       "name": "readMinikubeEndpoints",
       "description": "Resolve deterministic reachable URLs for ports exposed by the owned Minikube profile.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/readMinikubeEndpoints.ts",
         "line": 9,
@@ -1298,6 +1417,8 @@
     {
       "name": "createEndpoint",
       "description": "Create one output per public workload with a fixed published listener.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/readMinikubeEndpoints.ts",
         "line": 23,
@@ -1307,6 +1428,8 @@
     {
       "name": "parseOrigin",
       "description": "Parse the optional desired public origin without inventing endpoint state.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/readMinikubeEndpoints.ts",
         "line": 51,
@@ -1316,6 +1439,8 @@
     {
       "name": "matchesPort",
       "description": "Match default and explicit origin ports to one fixed listener.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/adapters/readMinikubeEndpoints.ts",
         "line": 61,
@@ -1325,6 +1450,8 @@
     {
       "name": "destroyMinikubeRuntimeAsync",
       "description": "Remove owned workloads before deleting Minikube, retaining the cluster when data survives.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
         "line": 17,
@@ -1334,6 +1461,8 @@
     {
       "name": "missingDestroyAccess",
       "description": "Refuse cluster deletion when persistent Kubernetes ownership cannot be inspected.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
         "line": 57,
@@ -1343,6 +1472,8 @@
     {
       "name": "isConfirmed",
       "description": "Require exact project and environment confirmation before any destructive inspection.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
         "line": 71,
@@ -1352,6 +1483,8 @@
     {
       "name": "unconfirmedDestroy",
       "description": "Return the canonical Minikube destructive-confirmation diagnostic.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/destroyMinikubeRuntimeAsync.ts",
         "line": 81,
@@ -1361,6 +1494,8 @@
     {
       "name": "ensureMinikubeRuntimeAsync",
       "description": "Ensure the Minikube cluster, bridge images, reconcile workloads and repair local endpoints.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts",
         "line": 19,
@@ -1370,6 +1505,8 @@
     {
       "name": "missingClusterAccess",
       "description": "Reject a ready cluster observation that omitted authenticated Kubernetes access.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts",
         "line": 64,
@@ -1379,6 +1516,8 @@
     {
       "name": "linkRootOwner",
       "description": "Link root Kubernetes resources to the Minikube cluster owner.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/ensureMinikubeRuntimeAsync.ts",
         "line": 78,
@@ -1388,6 +1527,8 @@
     {
       "name": "getMinikubeStatusAsync",
       "description": "Aggregate Minikube cluster and owned Kubernetes workload status.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/getMinikubeStatusAsync.ts",
         "line": 17,
@@ -1397,6 +1538,8 @@
     {
       "name": "planMinikubeRuntimeAsync",
       "description": "Plan Minikube cluster and standard Kubernetes resources without mutation.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
         "line": 19,
@@ -1406,6 +1549,8 @@
     {
       "name": "createClusterPlan",
       "description": "Create the plan action for Minikube profile convergence.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
         "line": 48,
@@ -1415,6 +1560,8 @@
     {
       "name": "missingPlanAccess",
       "description": "Refuse to guess at existing workload changes while the cluster API is unavailable.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
         "line": 68,
@@ -1424,6 +1571,8 @@
     {
       "name": "createPreClusterPlanAsync",
       "description": "Project create actions before cluster API access exists.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
         "line": 82,
@@ -1433,6 +1582,8 @@
     {
       "name": "linkRootAction",
       "description": "Link root Kubernetes actions to the Minikube cluster owner.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/planMinikubeRuntimeAsync.ts",
         "line": 102,
@@ -1442,6 +1593,8 @@
     {
       "name": "suspendMinikubeRuntimeAsync",
       "description": "Stop the Minikube profile while preserving its cluster and persistent data.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/suspendMinikubeRuntimeAsync.ts",
         "line": 15,
@@ -1451,6 +1604,8 @@
     {
       "name": "validateMinikubeRuntimeAsync",
       "description": "Validate Minikube selection, portable compute target and local control-plane prerequisites.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/application/use-cases/validateMinikubeRuntimeAsync.ts",
         "line": 10,
@@ -1460,6 +1615,8 @@
     {
       "name": "createInfraAdapter",
       "description": "Create the canonical Minikube runtime adapter entrypoint.\n\nThe caller supplies a Minikube-specific command boundary. Standard workload projection and\nreconciliation are delegated to the published Kubernetes driver.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
         "line": 21,
@@ -1469,6 +1626,8 @@
     {
       "name": "createKubernetesDriverRequest",
       "description": "Map runtime desired state to the shared Kubernetes driver boundary.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/utils/createKubernetesDriverRequest.ts",
         "line": 7,
@@ -1478,6 +1637,8 @@
     {
       "name": "createMinikubeClusterOwner",
       "description": "Create canonical ownership for the selected Minikube profile.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/utils/createMinikubeClusterOwner.ts",
         "line": 6,
@@ -1487,6 +1648,8 @@
     {
       "name": "getMinikubeClusterIdentity",
       "description": "Resolve the active Minikube identity from the canonical environment selection.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
         "line": 6,
@@ -1496,6 +1659,8 @@
     {
       "name": "toProfileName",
       "description": "Normalize a project identity into a deterministic Minikube profile name.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/utils/getMinikubeClusterIdentity.ts",
         "line": 34,
@@ -1505,6 +1670,8 @@
     {
       "name": "getMinikubeClusterSpec",
       "description": "Validate and create the local Minikube cluster specification.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/features/cluster-runtime/utils/getMinikubeClusterSpec.ts",
         "line": 7,
@@ -1514,6 +1681,8 @@
     {
       "name": "createSpec",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/minikubeCliControlPlane.test.ts",
         "line": 111,
@@ -1523,6 +1692,8 @@
     {
       "name": "createPublishedWorkload",
       "description": "Create one public workload with an exact host listener.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/minikubeCliControlPlane.test.ts",
         "line": 125,
@@ -1532,6 +1703,8 @@
     {
       "name": "imageLoadCalls",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/minikubeCliControlPlane.test.ts",
         "line": 134,
@@ -1541,6 +1714,8 @@
     {
       "name": "result",
       "description": null,
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/minikubeCliControlPlane.test.ts",
         "line": 218,
@@ -1550,6 +1725,8 @@
     {
       "name": "createDesired",
       "description": "Create a canonical local Minikube runtime request.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/minikubeRuntime.test.ts",
         "line": 106,
@@ -1559,6 +1736,8 @@
     {
       "name": "createContext",
       "description": "Create the execution-only environment context.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/minikubeRuntime.test.ts",
         "line": 129,
@@ -1568,6 +1747,8 @@
     {
       "name": "createDestroyRequest",
       "description": "Create exact non-persistent destruction confirmation.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/minikubeRuntime.test.ts",
         "line": 149,
@@ -1577,6 +1758,8 @@
     {
       "name": "countCalls",
       "description": "Count exact control-plane calls without mutating the fixture history.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/minikubeRuntime.test.ts",
         "line": 159,
@@ -1586,6 +1769,8 @@
     {
       "name": "success",
       "description": "Wrap a successful fixture result.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/runtimeFixtures.test.ts",
         "line": 129,
@@ -1595,6 +1780,8 @@
     {
       "name": "includesLabels",
       "description": "Match a required subset of ownership labels.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/runtimeFixtures.test.ts",
         "line": 134,
@@ -1604,6 +1791,8 @@
     {
       "name": "sameResource",
       "description": "Compare Kubernetes resources and references by immutable identity.",
+      "see": [],
+      "security": [],
       "sourceLocation": {
         "filePath": "src/runtimeFixtures.test.ts",
         "line": 146,

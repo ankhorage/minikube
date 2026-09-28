@@ -1,9 +1,11 @@
 [
   {
     "name": "createInfraAdapter",
+    "title": null,
     "description": "Create the canonical Minikube runtime adapter entrypoint.\n\nThe caller supplies a Minikube-specific command boundary. Standard workload projection and\nreconciliation are delegated to the published Kubernetes driver.",
     "isReadme": true,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "function",
     "modulePath": "src/features/cluster-runtime/composition/createInfraAdapter.ts",
     "sourceLocation": {
@@ -37,9 +39,11 @@
   },
   {
     "name": "createMinikubeCliControlPlane",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "function",
     "modulePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
     "sourceLocation": {
@@ -74,9 +78,11 @@
   },
   {
     "name": "infraAdapterDescriptor",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "value",
     "modulePath": "src/constants/infra.ts",
     "sourceLocation": {
@@ -94,9 +100,11 @@
   },
   {
     "name": "MinikubeAdapterOptions",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
@@ -124,9 +132,11 @@
   },
   {
     "name": "MinikubeCliControlPlaneOptions",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
@@ -189,9 +199,11 @@
   },
   {
     "name": "MinikubeClusterIdentity",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
@@ -231,9 +243,11 @@
   },
   {
     "name": "MinikubeClusterObservation",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
@@ -280,9 +294,11 @@
   },
   {
     "name": "MinikubeClusterSpec",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
@@ -357,9 +373,11 @@
   },
   {
     "name": "MinikubeCommandRequest",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
@@ -399,9 +417,11 @@
   },
   {
     "name": "MinikubeCommandResult",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
@@ -441,9 +461,11 @@
   },
   {
     "name": "MinikubeCommandRunner",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
@@ -472,9 +494,11 @@
   },
   {
     "name": "MinikubeControlPlane",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "type",
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
@@ -554,9 +578,11 @@
   },
   {
     "name": "MinikubeDesiredState",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "unknown",
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
@@ -574,9 +600,11 @@
   },
   {
     "name": "MinikubeEndpointOutput",
+    "title": null,
     "description": null,
     "isReadme": false,
-    "examples": [],
+    "see": [],
+    "security": [],
     "kind": "unknown",
     "modulePath": "src/types/minikubeRuntime.ts",
     "sourceLocation": {
