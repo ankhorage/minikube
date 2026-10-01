@@ -1,5 +1,12 @@
 # @ankhorage/minikube
 
+## 0.4.32
+
+### Patch Changes
+
+- 4429ce3: Update Renovate-managed workflows.
+- 89adffd: Update dependencies: `@ankhorage/devtools`.
+
 ## 0.4.31
 
 ### Patch Changes
