@@ -55,12 +55,12 @@
     "version-packages": "ankhorage-changeset version"
   },
   "dependencies": {
-    "@ankhorage/contracts": "^22.8.28",
+    "@ankhorage/contracts": "^22.8.31",
     "@ankhorage/kubernetes": "^0.8.2"
   },
   "devDependencies": {
     "@ankhorage/devtools": "^2.0.42",
-    "@ankhorage/paradox": "^0.2.8",
+    "@ankhorage/paradox": "^0.2.9",
     "@types/bun": "^1.4.2",
     "@types/node": "^26.6.3",
     "typescript": "~6.0.3"
