@@ -1,5 +1,12 @@
 # @ankhorage/minikube
 
+## 0.4.35
+
+### Patch Changes
+
+- 82280cb: Update dependencies: `@ankhorage/contracts`.
+- f139bef: Update dependencies: `@ankhorage/devtools`.
+
 ## 0.4.34
 
 ### Patch Changes
