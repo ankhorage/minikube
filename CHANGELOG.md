@@ -1,5 +1,11 @@
 # @ankhorage/minikube
 
+## 0.4.51
+
+### Patch Changes
+
+- 9e0bbe8: Update Renovate-managed workflows.
+
 ## 0.4.50
 
 ### Patch Changes
