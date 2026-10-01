@@ -1,5 +1,12 @@
 # @ankhorage/minikube
 
+## 0.4.44
+
+### Patch Changes
+
+- 92390ee: Update dependencies: `@ankhorage/devtools`.
+- bfb1146: Update dependencies: `@ankhorage/contracts`.
+
 ## 0.4.43
 
 ### Patch Changes
