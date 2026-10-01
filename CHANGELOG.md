@@ -1,5 +1,12 @@
 # @ankhorage/minikube
 
+## 0.4.37
+
+### Patch Changes
+
+- d64fb77: Update Renovate-managed workflows.
+- e2eae24: Update dependencies: `@ankhorage/contracts`.
+
 ## 0.4.36
 
 ### Patch Changes
