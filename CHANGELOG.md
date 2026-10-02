@@ -1,5 +1,12 @@
 # @ankhorage/minikube
 
+## 0.4.93
+
+### Patch Changes
+
+- a21d955: Update Renovate-managed workflows.
+- 3202588: Update dependencies: `@ankhorage/contracts`.
+
 ## 0.4.92
 
 ### Patch Changes
