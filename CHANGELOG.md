@@ -1,5 +1,11 @@
 # @ankhorage/minikube
 
+## 0.4.105
+
+### Patch Changes
+
+- e5d94d3: Update dependencies: `@ankhorage/devtools`.
+
 ## 0.4.104
 
 ### Patch Changes
