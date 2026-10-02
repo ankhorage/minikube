@@ -1,5 +1,11 @@
 # @ankhorage/minikube
 
+## 0.4.56
+
+### Patch Changes
+
+- fcd7b89: Update dependencies: `@ankhorage/contracts`, `@ankhorage/paradox`.
+
 ## 0.4.55
 
 ### Patch Changes
