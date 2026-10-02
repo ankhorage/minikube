@@ -1,5 +1,11 @@
 # @ankhorage/minikube
 
+## 0.4.86
+
+### Patch Changes
+
+- fcfac77: Update Renovate-managed workflows.
+
 ## 0.4.85
 
 ### Patch Changes
