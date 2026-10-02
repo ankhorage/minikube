@@ -3,23 +3,9 @@
 
 # @ankhorage/minikube
 
-![license: MIT](././paradox/badges/license.svg) ![npm: v0.4.86](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![paradox: warnings](././paradox/badges/docs.svg)
+![license: MIT](././paradox/badges/license.svg) ![npm: v0.4.87](././paradox/badges/npm.svg) ![runtime: bun](././paradox/badges/runtime.svg) ![typescript: strict](././paradox/badges/typescript.svg) ![eslint: checked](././paradox/badges/eslint.svg) ![prettier: checked](././paradox/badges/prettier.svg) ![build: checked](././paradox/badges/build.svg) ![tests: checked](././paradox/badges/tests.svg) ![paradox: warnings](././paradox/badges/docs.svg)
 
 Minikube runtime adapter for provider-neutral Ankhorage infrastructure.
-
-## Configuration
-
-### Example
-
-```ts
-import { defineParadoxConfig } from '@ankhorage/paradox';
-
-export default defineParadoxConfig({
-  mode: 'write',
-  package: { root: '.', entrypoints: ['src/index.ts'] },
-  output: { dir: './paradox' },
-});
-```
 
 ## Generated documentation
 
