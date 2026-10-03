@@ -1,5 +1,11 @@
 # @ankhorage/minikube
 
+## 0.4.113
+
+### Patch Changes
+
+- ef934cb: Update dependencies: `@ankhorage/contracts`.
+
 ## 0.4.112
 
 ### Patch Changes
