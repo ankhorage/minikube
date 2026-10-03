@@ -14,7 +14,7 @@
     {
       "id": "npm",
       "label": "npm",
-      "value": "v0.4.107",
+      "value": "v0.4.108",
       "color": "cb3837"
     },
     {
@@ -70,7 +70,7 @@
     {
       "ruleId": "documentation.public-function.description",
       "severity": "warning",
-      "message": "Public function createMinikubeCliControlPlane has no Paradox description.",
+      "message": "Exported function createMinikubeCliControlPlane has no documentation description.",
       "sourcePath": "src/features/cluster-runtime/adapters/createMinikubeCliControlPlane.ts",
       "line": 27
     }
