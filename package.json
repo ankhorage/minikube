@@ -55,7 +55,7 @@
     "version-packages": "ankhorage-changeset version"
   },
   "dependencies": {
-    "@ankhorage/contracts": "^23.0.0",
+    "@ankhorage/contracts": "^24.0.0",
     "@ankhorage/kubernetes": "^0.8.2"
   },
   "devDependencies": {
