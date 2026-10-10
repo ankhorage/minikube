@@ -5,7 +5,7 @@
     "": {
       "name": "@ankhorage/minikube",
       "dependencies": {
-        "@ankhorage/contracts": "^25.1.0",
+        "@ankhorage/contracts": "^25.2.0",
         "@ankhorage/kubernetes": "^0.8.2",
       },
       "devDependencies": {
